@@ -1,8 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     text-align: center;
     margin: 50px;
-    text-decoration-color: blueviolet;
+    text-decoration-color: rgb(14, 1, 68);
+    background-color: rgb(161, 181, 224);
 }
 button {
     padding: 10px 20px;
