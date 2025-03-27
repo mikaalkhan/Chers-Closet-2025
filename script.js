@@ -12,7 +12,12 @@ const Clothingitemsvalues = [
 
 function showImage(accoryId) {
     // const imageURLs = Clothingitemsvalues.map(clothes => clothes.image);
-    document.getElementById(accoryId).src = Clothingitemsvalues[1].image;
+    if (accoryId == "Hatid") {
+        document.getElementById(accoryId).src = Clothingitemsvalues[0].image;
+    } else {
+        document.getElementById(accoryId).src = Clothingitemsvalues[1].image;
+    }
+
     document.getElementById(accoryId).style.display = "block"
 }
 
