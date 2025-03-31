@@ -14,9 +14,9 @@ function showImage(accoryId) {
     // const imageURLs = Clothingitemsvalues.map(clothes => clothes.image);
     if (accoryId == "Hatid") {
         document.getElementById(accoryId).src = Clothingitemsvalues[0].image;
-    } else if (accoryId == "tshirt") {
+    } else if (accoryId == "Shirtid") {
         document.getElementById(accoryId).src = Clothingitemsvalues[1].image;
-    } else if (accoryId == "jacket") {
+    } else if (accoryId == "Pantid") {
         document.getElementById(accoryId).src = Clothingitemsvalues[2].image;
     }
 
