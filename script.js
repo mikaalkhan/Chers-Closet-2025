@@ -21,9 +21,9 @@ function showImage(accoryId) {
     } else if (accoryId == "Jacketid") {
         document.getElementById(accoryId).src = Clothingitemsvalues[2].image;
     } else if (accoryId == "Shoeid") {
-        document.getElementById(accoryId).src = Clothingitemsvalues[3].image;
-    } else if (accoryId == "Pantid") {
         document.getElementById(accoryId).src = Clothingitemsvalues[4].image;
+    } else if (accoryId == "Pantid") {
+        document.getElementById(accoryId).src = Clothingitemsvalues[3].image;
     }
 
     document.getElementById(accoryId).style.display = "block"
