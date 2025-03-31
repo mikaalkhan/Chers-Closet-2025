@@ -33,14 +33,8 @@ function showImage(accoryId) {
  function insertDiv() {
      // Create a new div
     let newDiv = document.createElement("div");
-    newDiv.className = "image-box";
+    newDiv.className = "image-box-shirt";
 
-    let img = document.createElement("img");
-    img.src = "C:\\Users\\SAAS_User\\Downloads\\Blue Hat 1.avif".image;
-
-    newDiv.appendChild(img);
-
-    // Append the div to the container
     document.getElementById("container").appendChild(newDiv);
     }
 

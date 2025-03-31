@@ -14,13 +14,13 @@ button {
 #container {
     margin-top: 20px;
 }
-.image-box {
+.image-box-shirt {
     border: 2px solid #333;
     padding: 10px;
     display: inline-block;
     text-align: center;
 }
-.image-box img {
+.image-box-shirt img {
     width: 150px; /* Adjust size as needed */
     height: auto;
 }
