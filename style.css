@@ -11,8 +11,11 @@ button {
     cursor: pointer;
 }
 
-#container {
+.container {
     margin-top: 20px;
+    font-size: xx-large;
+    align-content: center;
+    margin: auto;
 }
 .image-box-shirt {
     border: 2px solid #333;
