@@ -32,6 +32,7 @@ function showImage(accoryId) {
     if (accoryId == "Hatid") {
         document.getElementById(accoryId).src = hatvalues[0].image;
     } else if (accoryId == "Shirtid") {
+<<<<<<< HEAD
         document.getElementById(accoryId).src = shirtvalues[0].image;
     } else if (accoryId == "Jacketid") {
         document.getElementById(accoryId).src = jacketvalues[0].image;
@@ -39,17 +40,22 @@ function showImage(accoryId) {
         document.getElementById(accoryId).src = pantvalues[0].image;
     } else if (accoryId == "Pantid") {
         document.getElementById(accoryId).src = shoesvalues[0].image;
+=======
+        document.getElementById(accoryId).src = Clothingitemsvalues[1].image;
+        document.getElementById("|Id").style.display = "none"
+    } else if (accoryId == "Jacketid") {
+        document.getElementById(accoryId).src = Clothingitemsvalues[2].image;
+        document.getElementById("[]Id").style.display = "none"
+    } else if (accoryId == "Shoeid") {
+        document.getElementById(accoryId).src = Clothingitemsvalues[4].image;
+        document.getElementById("--Id").style.display = "none"
+    } else if (accoryId == "Pantid") {
+        document.getElementById(accoryId).src = Clothingitemsvalues[3].image;
+        document.getElementById("||Id").style.display = "none"
+>>>>>>> 3d8fb58ce8d9a4ba894cc64c2a0766e4ea5091c5
     }
 
     document.getElementById(accoryId).style.display = "block"
 }
 
-
- function insertDiv() {
-     // Create a new div
-    let newDiv = document.createElement("div");
-    newDiv.className = "image-box-shirt";
-
-    document.getElementById("container").appendChild(newDiv);
-    }
 

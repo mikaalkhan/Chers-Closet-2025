@@ -3,7 +3,7 @@ body {
     text-align: center;
     margin: 50px;
     text-decoration-color: rgb(14, 1, 68);
-    background-color: rgb(161, 181, 224);
+    background-color: rgb(255, 255, 255);
 }
 button {
     padding: 10px 20px;
@@ -12,18 +12,9 @@ button {
 }
 
 .container {
-    margin-top: 20px;
-    font-size: xx-large;
     align-content: center;
-    margin: auto;
-}
-.image-box-shirt {
-    border: 2px solid #333;
-    padding: 10px;
-    display: inline-block;
+    margin-left: auto;
     text-align: center;
-}
-.image-box-shirt img {
-    width: 150px; /* Adjust size as needed */
-    height: auto;
+    margin-top: auto;
+    font-size: xx-large;
 }
