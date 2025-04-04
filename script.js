@@ -3,6 +3,12 @@ function showMessage() {
     console.log("Button Clicked!")
 }
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
 const hatvalues = [
     {color : "Blue", type: "0", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
 ]
@@ -25,37 +31,50 @@ const pantvalues = [
 const shoesvalues = [
     {color : "Blue White", type: "sambas", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\shoes samba white and blue.avif" },
     {color : "Blue White", type: "sambas", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\shoes-white&blue-2.webp"}
-]
+    ]
+
+let Hatcycle = 0;
+let Jacketcycle = 0;
+let Shirtcycle = 0;
+let Pantscycle = 0;
+let Shoescycle = 0;
+function pickRandomNumber() {
+    Hatcycle = getRandomInt(0, hatvalues.length)
+    Jacketcycle = getRandomInt(0, jacketvalues.length)
+    Shirtcycle = getRandomInt(0, shoesvalues.length)
+    Pantscycle = getRandomInt(0, pantvalues.length)
+    Shoescycle = getRandomInt(0, shoesvalues.length)
+    showImage("Hatid")
+    showImage("Jacketid")
+    showImage("Shirtid")
+    showImage("Pantid")
+    showImage("Shoeid")
+
+}
+
 
 function showImage(accoryId) {
     // const imageURLs = Clothingitemsvalues.map(clothes => clothes.image);
     if (accoryId == "Hatid") {
-        document.getElementById(accoryId).src = hatvalues[0].image;
+        document.getElementById(accoryId).src = hatvalues[Hatcycle].image;
+    } else if (accoryId == "Jacketid") {
+        document.getElementById(accoryId).src = jacketvalues[Jacketcycle].image;
     } else if (accoryId == "Shirtid") {
-<<<<<<< HEAD
-        document.getElementById(accoryId).src = shirtvalues[0].image;
-    } else if (accoryId == "Jacketid") {
-        document.getElementById(accoryId).src = jacketvalues[0].image;
-    } else if (accoryId == "Shoeid") {
-        document.getElementById(accoryId).src = pantvalues[0].image;
+        document.getElementById(accoryId).src = shirtvalues[Shirtcycle].image;
     } else if (accoryId == "Pantid") {
-        document.getElementById(accoryId).src = shoesvalues[0].image;
-=======
-        document.getElementById(accoryId).src = Clothingitemsvalues[1].image;
-        document.getElementById("|Id").style.display = "none"
-    } else if (accoryId == "Jacketid") {
-        document.getElementById(accoryId).src = Clothingitemsvalues[2].image;
-        document.getElementById("[]Id").style.display = "none"
+        document.getElementById(accoryId).src = pantvalues[Pantscycle].image;
     } else if (accoryId == "Shoeid") {
-        document.getElementById(accoryId).src = Clothingitemsvalues[4].image;
-        document.getElementById("--Id").style.display = "none"
-    } else if (accoryId == "Pantid") {
-        document.getElementById(accoryId).src = Clothingitemsvalues[3].image;
-        document.getElementById("||Id").style.display = "none"
->>>>>>> 3d8fb58ce8d9a4ba894cc64c2a0766e4ea5091c5
+        document.getElementById(accoryId).src = shoesvalues[Shoescycle].image;
     }
-
     document.getElementById(accoryId).style.display = "block"
 }
 
+
+ function insertDiv() {
+     // Create a new div
+    let newDiv = document.createElement("div");
+    newDiv.className = "image-box-shirt";
+
+    document.getElementById("container").appendChild(newDiv);
+    }
 
