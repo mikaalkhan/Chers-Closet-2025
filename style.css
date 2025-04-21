@@ -20,7 +20,6 @@ button {
     justify-content: center; /* centers the images */
     align-items: center; /* centers vertically if needed */ 
     gap: 10px; /* optional: nice spacing */
-    font-size: xx-large;
 }
 
 .image_container img {
