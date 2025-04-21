@@ -5,16 +5,29 @@ body {
     text-decoration-color: rgb(14, 1, 68);
     background-color: rgb(255, 255, 255);
 }
+
 button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
 }
 
-.container {
-    align-content: center;
-    margin-left: auto;
-    text-align: center;
-    margin-top: auto;
+.image_container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center; /* centers the images */
+    align-items: center; /* centers vertically if needed */ 
+    gap: 10px; /* optional: nice spacing */
     font-size: xx-large;
 }
+
+.image_container img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin: 5px;
+    /* align-content: center; */
+}
+
+
