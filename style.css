@@ -12,6 +12,7 @@ button {
     cursor: pointer;
 }
 
+
 .image_container {
     display: flex;
     flex-wrap: wrap;
