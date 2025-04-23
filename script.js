@@ -25,8 +25,8 @@ checkbox.checked = true; // Check the checkbox
 checkbox.checked = false; // Uncheck the checkbox
 const hatvalues = [
     {color : "Blue", type: "cap", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
-    {color : "ivory", type: "sunhat", formal: "true", image: },
-    {color : "black", type: "cap", formal: "true", image: }
+    {color : "ivory", type: "sunhat", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown sunhat.jpg"},
+    {color : "black", type: "cap", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\black flat cap.webp"}
 ]
 
 const checkbox = document.getElementById('myCheckbox');
@@ -54,16 +54,17 @@ const shirtvalues = [
     {color : "white", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\white_T_1.jpg" },
     {color : "ivory", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Ivory-tshirt.webp"},
     {color : "purple", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\purple tshirt 1.avif"},
-    {color : "brown", type: "tshirt", formal: "false", image: },
-    {color : "black", type: "tshirt", formal: "false", image: },
-    {color : "white", type: "collared", formal: "true", image: }
+    {color : "brown", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown tshirt.jpg"},
+    {color : "black", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\black tshirt.webp"},
+    {color : "white", type: "collared", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\white collared shirt.webp"}
 ]
 
 const jacketvalues = [
     {color : "Black", type: "jacket", formal: "false", image:"C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Bomber Jacket (black) 1.webp" },
     {color : "blue", type: "sweatter", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\sweatter-navy-1.avif" },
     {color : "brown", type: "sweatshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown sweatshirt 1.avif"},
-
+    {color : "blue", type: "denim", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\blue denim jacket.webp"},
+    {color : "ivory", type: "quarterzip", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\white sweater quarterzip.avif"}
 ]
 
 const pantvalues = [
@@ -71,20 +72,20 @@ const pantvalues = [
     {color : "ivory", type: "ribbed", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Ivory-pants-ribbed.webp" },
     {color : "blue", type: "jeans", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Light Jeans 1.avif"},
     {color : "grey", type: "jeans", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\grey jeans 1.avif"},
-    {color : "grey", type: "slacks", formal: "true", image: },
-    {color : "black", type: "slacks", formal: "true", image: },
-    {color : "ivory", type: "shorts", formal: "false", image: },
-    {color : "brown", type: "shorts", formal: "false", image: },
-    {color : "blue", type: "shorts", formal: "false", image: }
+    {color : "grey", type: "slacks", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\mens pants formal grey.jpg"},
+    {color : "black", type: "slacks", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\black pants formal 1.webp"},
+    {color : "ivory", type: "shorts", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\ivory shorts.jpg"},
+    {color : "brown", type: "shorts", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown shorts.webp"},
+    {color : "blue", type: "shorts", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\navy shorts.webp"}
 ]
 
 const shoesvalues = [
     {color : "white", type: "sambas", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\shoes samba white and blue.avif" },
     {color : "ivory", type: "sambas", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\shoes-white&blue-2.webp"},
     {color : "brown", type: "oxford", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown dress shoes.jpg" },
-    {color : "brown", type: "sambas", formal: "false", image: },
-    {color : "brown", type: "cowboy boots", formal: "false", image: },
-    {color : "black", type: "jeans", formal: "false", image: }
+    {color : "brown", type: "sambas", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown sambas 2.webp"},
+    {color : "brown", type: "cowboy boots", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown cowboy boots.webp"},
+    {color : "black", type: "sambas", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\black sambas.jpg"}
     ]
 
 let Hatcycle = 0;
