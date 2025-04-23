@@ -135,27 +135,46 @@ function getRandomInt(min, max) {
   }
 
 const hatvalues = [
-    {color : "Blue", type: "0", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
+    {color : "Blue", type: "cap", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
+    {color : "ivory", type: "sunhat", formal: "true", image: },
+    {color : "black", type: "cap", formal: "true", image: }
 ]
 
 const shirtvalues = [
-    {color : "white", type: "0", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\white_T_1.jpg" },
-    {color : "ivory", type: "0", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Ivory-tshirt.webp"}
+    {color : "white", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\white_T_1.jpg" },
+    {color : "ivory", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Ivory-tshirt.webp"},
+    {color : "purple", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\purple tshirt 1.avif"},
+    {color : "brown", type: "tshirt", formal: "false", image: },
+    {color : "black", type: "tshirt", formal: "false", image: },
+    {color : "white", type: "collared", formal: "true", image: }
 ]
 
 const jacketvalues = [
-    {color : "Black", type: "bmbr", pattern: "false", image:"C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Bomber Jacket (black) 1.webp" },
-    {color : "Navy", type: "swtr", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\sweatter-navy-1.avif" }
+    {color : "Black", type: "jacket", formal: "false", image:"C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Bomber Jacket (black) 1.webp" },
+    {color : "blue", type: "sweatter", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\sweatter-navy-1.avif" },
+    {color : "brown", type: "sweatshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown sweatshirt 1.avif"},
+
 ]
 
 const pantvalues = [
-    {color : "Paleblue", type: "jeans", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Light Jeans 1.avif" },
-    {color : "ivory", type: "ribbed", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Ivory-pants-ribbed.webp" }
+    {color : "blue", type: "jeans", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Light Jeans 1.avif" },
+    {color : "ivory", type: "ribbed", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Ivory-pants-ribbed.webp" },
+    {color : "blue", type: "jeans", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Light Jeans 1.avif"},
+    {color : "grey", type: "jeans", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\grey jeans 1.avif"},
+    {color : "grey", type: "slacks", formal: "true", image: },
+    {color : "black", type: "slacks", formal: "true", image: },
+    {color : "ivory", type: "shorts", formal: "false", image: },
+    {color : "brown", type: "shorts", formal: "false", image: },
+    {color : "blue", type: "shorts", formal: "false", image: }
 ]
 
 const shoesvalues = [
-    {color : "Blue White", type: "sambas", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\shoes samba white and blue.avif" },
-    {color : "Blue White", type: "sambas", pattern: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\shoes-white&blue-2.webp"}
+    {color : "white", type: "sambas", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\shoes samba white and blue.avif" },
+    {color : "ivory", type: "sambas", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\shoes-white&blue-2.webp"},
+    {color : "brown", type: "oxford", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown dress shoes.jpg" },
+    {color : "brown", type: "sambas", formal: "false", image: },
+    {color : "brown", type: "cowboy boots", formal: "false", image: },
+    {color : "black", type: "jeans", formal: "false", image: }
     ]
 
 let Hatcycle = 0;
