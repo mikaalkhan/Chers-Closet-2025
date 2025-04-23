@@ -4,141 +4,51 @@ function showMessage() {
     console.log("Button Clicked!")
 }
 
-
-
-JCheckBox checkBox1 = new JCheckBox("Option 1");
-JCheckBox checkBox2 = new JCheckBox("Option 2");
-JCheckBox checkBox2 = new JCheckBox("Option 3");
-JCheckBox checkBox2 = new JCheckBox("Option 4");
-JCheckBox checkBox2 = new JCheckBox("Option 5");
-JCheckBox checkBox2 = new JCheckBox("Option 6");
-JCheckBox checkBox2 = new JCheckBox("Option 7");
-
-JPanel panel = new JPanel();
-panel.add(checkBox1);
-panel.add(checkBox2);
-panel.add(checkBox3);
-panel.add(checkBox4);
-panel.add(checkBox5);
-panel.add(checkBox6);
-panel.add(checkBox7);
-
-checkBox1.addItemListener(new ItemListener() {
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            // Checkbox is selected
-        } else {
-            // Checkbox is deselected
-        }
-    }
-});
-if (checkBox1.isSelected()) {
-    // Checkbox is selected
-} else {
-    // Checkbox is deselected
-}
-
-checkBox2.addItemListener(new ItemListener() {
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            // Checkbox is selected
-        } else {
-            // Checkbox is deselected
-        }
-    }
-});
-if (checkBox2.isSelected()) {
-    // Checkbox is selected
-} else {
-    // Checkbox is deselected
-}
-
-checkBox3.addItemListener(new ItemListener() {
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            // Checkbox is selected
-        } else {
-            // Checkbox is deselected
-        }
-    }
-});
-if (checkBox3.isSelected()) {
-    // Checkbox is selected
-} else {
-    // Checkbox is deselected
-}
-
-checkBox4.addItemListener(new ItemListener() {
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            // Checkbox is selected
-        } else {
-            // Checkbox is deselected
-        }
-    }
-});
-if (checkBox4.isSelected()) {
-    // Checkbox is selected
-} else {
-    // Checkbox is deselected
-}
-
-checkBox5.addItemListener(new ItemListener() {
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            // Checkbox is selected
-        } else {
-            // Checkbox is deselected
-        }
-    }
-});
-if (checkBox5.isSelected()) {
-    // Checkbox is selected
-} else {
-    // Checkbox is deselected
-}
-
-checkBox6.addItemListener(new ItemListener() {
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            // Checkbox is selected
-        } else {
-            // Checkbox is deselected
-        }
-    }
-});
-if (checkBox6.isSelected()) {
-    // Checkbox is selected
-} else {
-    // Checkbox is deselected
-}
-
-checkBox7.addItemListener(new ItemListener() {
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            // Checkbox is selected include item as attribute
-        } else {
-            // Checkbox is deselected - null point
-        }
-    }
-});
-if (checkBox7.isSelected()) {
-    // Checkbox is selected
-} else {
-    // Checkbox is deselected
-}
-
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
+
+const checkbox = document.getElementById('myCheckbox');
+if (checkbox.checked) {
+  // Checkbox is checked
+  console.log('Checkbox is checked');
+} else {
+  // Checkbox is not checked
+  console.log('Checkbox is not checked');
+}
+
+const checkbox = document.getElementById('myCheckbox');
+checkbox.checked = true; // Check the checkbox
+checkbox.checked = false; // Uncheck the checkbox
 const hatvalues = [
     {color : "Blue", type: "cap", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
     {color : "ivory", type: "sunhat", formal: "true", image: },
     {color : "black", type: "cap", formal: "true", image: }
 ]
+
+const checkbox = document.getElementById('myCheckbox');
+checkbox.addEventListener('change', function() {
+  if (this.checked) {
+    // Checkbox was checked
+    console.log('Checkbox was checked');
+  } else {
+    // Checkbox was unchecked
+    console.log('Checkbox was unchecked');
+  }
+});
+
+const checkbox = document.getElementById('myCheckbox');
+console.log(checkbox.value); // Output: "checkboxValue"
+
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+    console.log(this.id, this.checked);
+  });
+});
 
 const shirtvalues = [
     {color : "white", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\white_T_1.jpg" },
