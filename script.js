@@ -20,11 +20,11 @@ if (checkbox.checked) {
   console.log('Checkbox is not checked');
 }
 
-const checkbox = document.getElementById('myCheckbox');
+//const checkbox = document.getElementById('myCheckbox');
 checkbox.checked = true; // Check the checkbox
 checkbox.checked = false; // Uncheck the checkbox
 const hatvalues = [
-    {color : "Blue", type: "cap", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
+    {color : "blue", type: "cap", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
     {color : "ivory", type: "sunhat", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown sunhat.jpg"},
     {color : "black", type: "cap", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\black flat cap.webp"}
 ]
