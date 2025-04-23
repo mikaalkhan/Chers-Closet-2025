@@ -1,6 +1,131 @@
+
 function showMessage() {
     document.getElementById("message").innerText = "Hello, JavaScript is working!";
     console.log("Button Clicked!")
+}
+
+
+
+JCheckBox checkBox1 = new JCheckBox("Option 1");
+JCheckBox checkBox2 = new JCheckBox("Option 2");
+JCheckBox checkBox2 = new JCheckBox("Option 3");
+JCheckBox checkBox2 = new JCheckBox("Option 4");
+JCheckBox checkBox2 = new JCheckBox("Option 5");
+JCheckBox checkBox2 = new JCheckBox("Option 6");
+JCheckBox checkBox2 = new JCheckBox("Option 7");
+
+JPanel panel = new JPanel();
+panel.add(checkBox1);
+panel.add(checkBox2);
+panel.add(checkBox3);
+panel.add(checkBox4);
+panel.add(checkBox5);
+panel.add(checkBox6);
+panel.add(checkBox7);
+
+checkBox1.addItemListener(new ItemListener() {
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            // Checkbox is selected
+        } else {
+            // Checkbox is deselected
+        }
+    }
+});
+if (checkBox1.isSelected()) {
+    // Checkbox is selected
+} else {
+    // Checkbox is deselected
+}
+
+checkBox2.addItemListener(new ItemListener() {
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            // Checkbox is selected
+        } else {
+            // Checkbox is deselected
+        }
+    }
+});
+if (checkBox2.isSelected()) {
+    // Checkbox is selected
+} else {
+    // Checkbox is deselected
+}
+
+checkBox3.addItemListener(new ItemListener() {
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            // Checkbox is selected
+        } else {
+            // Checkbox is deselected
+        }
+    }
+});
+if (checkBox3.isSelected()) {
+    // Checkbox is selected
+} else {
+    // Checkbox is deselected
+}
+
+checkBox4.addItemListener(new ItemListener() {
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            // Checkbox is selected
+        } else {
+            // Checkbox is deselected
+        }
+    }
+});
+if (checkBox4.isSelected()) {
+    // Checkbox is selected
+} else {
+    // Checkbox is deselected
+}
+
+checkBox5.addItemListener(new ItemListener() {
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            // Checkbox is selected
+        } else {
+            // Checkbox is deselected
+        }
+    }
+});
+if (checkBox5.isSelected()) {
+    // Checkbox is selected
+} else {
+    // Checkbox is deselected
+}
+
+checkBox6.addItemListener(new ItemListener() {
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            // Checkbox is selected
+        } else {
+            // Checkbox is deselected
+        }
+    }
+});
+if (checkBox6.isSelected()) {
+    // Checkbox is selected
+} else {
+    // Checkbox is deselected
+}
+
+checkBox7.addItemListener(new ItemListener() {
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            // Checkbox is selected include item as attribute
+        } else {
+            // Checkbox is deselected - null point
+        }
+    }
+});
+if (checkBox7.isSelected()) {
+    // Checkbox is selected
+} else {
+    // Checkbox is deselected
 }
 
 function getRandomInt(min, max) {
@@ -97,4 +222,3 @@ function showImage(accoryId) {
 
     document.getElementById("container").appendChild(newDiv);
     }
-
