@@ -28,7 +28,8 @@ const jacketvalues = [
     {color : "Black", type: "jacket", formal: "false", image:"C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Bomber Jacket (black) 1.webp" },
     {color : "blue", type: "sweatter", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\sweatter-navy-1.avif" },
     {color : "brown", type: "sweatshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown sweatshirt 1.avif"},
-
+    {color : "blue", type: "denim", formal: "false", image: 
+    {color : "ivory", type: "quarterzip", formal: "false", image: 
 ]
 
 const pantvalues = [
@@ -49,7 +50,7 @@ const shoesvalues = [
     {color : "brown", type: "oxford", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown dress shoes.jpg" },
     {color : "brown", type: "sambas", formal: "false", image: },
     {color : "brown", type: "cowboy boots", formal: "false", image: },
-    {color : "black", type: "jeans", formal: "false", image: }
+    {color : "black", type: "sambas", formal: "false", image: }
     ]
 
 let Hatcycle = 0;
