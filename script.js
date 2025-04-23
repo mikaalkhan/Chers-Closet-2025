@@ -11,7 +11,7 @@ function getRandomInt(min, max) {
   }
 
 
-const checkbox = document.getElementById('myCheckbox');
+const checkbox = document.getElementById('formalCheckbox');
 if (checkbox.checked) {
   // Checkbox is checked
   console.log('Checkbox is checked');
@@ -23,16 +23,11 @@ if (checkbox.checked) {
 //const checkbox = document.getElementById('myCheckbox');
 checkbox.checked = true; // Check the checkbox
 checkbox.checked = false; // Uncheck the checkbox
-const hatvalues = [
-    {color : "blue", type: "cap", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
-    {color : "ivory", type: "sunhat", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown sunhat.jpg"},
-    {color : "black", type: "cap", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\black flat cap.webp"}
-]
 
-const checkbox = document.getElementById('myCheckbox');
+const checkbox = document.getElementById('formalCheckbox');
 checkbox.addEventListener('change', function() {
   if (this.checked) {
-    // Checkbox was checked
+    
     console.log('Checkbox was checked');
   } else {
     // Checkbox was unchecked
@@ -40,7 +35,7 @@ checkbox.addEventListener('change', function() {
   }
 });
 
-const checkbox = document.getElementById('myCheckbox');
+const checkbox = document.getElementById('formalCheckbox');
 console.log(checkbox.value); // Output: "checkboxValue"
 
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -49,6 +44,12 @@ checkboxes.forEach(checkbox => {
     console.log(this.id, this.checked);
   });
 });
+
+const hatvalues = [
+    {color : "blue", type: "cap", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\Blue Hat 1.avif"}
+    {color : "ivory", type: "sunhat", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\brown sunhat.jpg"},
+    {color : "black", type: "cap", formal: "true", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\black flat cap.webp"}
+]
 
 const shirtvalues = [
     {color : "white", type: "tshirt", formal: "false", image: "C:\\Users\\SAAS_User\\Documents\\GitHub\\Chers-Closet-2025\\images\\white_T_1.jpg" },
