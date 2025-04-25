@@ -10,59 +10,48 @@
     <h1>Cher's Closet Project</h1>
     <button onclick="showMessage()">Click Me!</button>
     <p id="message"></p>
-    <h2>Formality:</h2>
-    <input type="checkbox" id="formalCheckbox" name="formalCheckbox" value="checkboxValue">
-    <label for="formalCheckbox">Formal</label>
-    
-    <input type="checkbox" id="casualCheckbox" name="casualCheckbox" value="checkboxValue">
-    <label for="casualCheckbox">Casual</label>
-    <h2>Temperature</h2>
-    <input type="checkbox" id="coolCheckbox" name="coolCheckbox" value="checkboxValue">
-    <label for="coolCheckbox">Cool</label>
 
-    <input type="checkbox" id="warmCheckbox" name="warmCheckbox" value="checkboxValue">
-    <label for="warmCheckbox">Warm</label>
-    <h2>Color</h2>
-    <input type="checkbox" id="colorBLUCheckbox" name="colorBLUCheckbox" value="checkboxValue">
-    <label for="colorBLUCheckbox">Blue</label>
+    <!-- Formality -->
+    <h2>Formality</h2>
+    <label><input type="checkbox" id="formalCheckbox" class="filter" data-type="formality" value="true"> Formal</label>
+    <label><input type="checkbox" id="casualCheckbox" class="filter" data-type="formality" value="false"> Casual</label>
 
-    <input type="checkbox" id="colorWHCheckbox" name="colorWHCheckbox" value="checkboxValue">
-    <label for="colorWHCheckbox">White</label>
+    <!-- Temperature -->
+    <h2>Temp</h2>
+    <label><input type="checkbox" id="warmCheckbox" class="filter" data-type="temperature" value="warm"> Warm</label>
+    <label><input type="checkbox" id="coolCheckbox" class="filter" data-type="temperature" value="cool"> Cool</label>
 
-    <input type="checkbox" id="colorBLACheckbox" name="colorBLACheckbox" value="checkboxValue">
-    <label for="colorBLACheckbox">Black</label>
-
-    <input type="checkbox" id="colorIVCheckbox" name="colorIVCheckbox" value="checkboxValue">
-    <label for="colorIVCheckbox">Ivory</label>
-
-    <input type="checkbox" id="colorBRCheckbox" name="colorBRCheckbox" value="checkboxValue">
-    <label for="colorBRCheckbox">Brown</label>
+    <!-- Color -->
+    <h2>Color</h2> 
+    <label><input type="checkbox" id="blueCheckbox" class="filter" data-type="color" value="blue"> Blue</label>
+    <label><input type="checkbox" id="ivoryCheckbox" class="filter" data-type="color" value="ivory"> Ivory</label>
+    <label><input type="checkbox" id="blackCheckbox" class="filter" data-type="color" value="black"> Black</label>
+    <label><input type="checkbox" id="whiteCheckbox" class="filter" data-type="color" value="white"> White</label>
+    <label><input type="checkbox" id="brownCheckbox" class="filter" data-type="color" value="brown"> Brown</label>
+    <label><input type="checkbox" id="greyCheckbox" class="filter" data-type="color" value="grey"> Grey</label>
 
     <h1> ________ </h1>
     <button onclick="pickRandomNumber()">Click For Random Outfit</button>
     <div class="image_container">
         <button onclick="showImage('Hatid')">Click For Hat!</button>
-        <img id="Hatid" src="C:\\Users\\SAAS_User\\Downloads\\Blue Hat 1.avif" style="display: none;" ></img>
-    
+        <img id="Hatid" src="images/Blue Hat 1.avif" style="display: none;" />
+
         <button onclick="showImage('Jacketid')">Click For Jackets!</button>
-        <img id="Jacketid" src="C:\\Users\\SAAS_User\\Downloads\\Blue Hat 1.avif" style="display: none;" ></img>
-    
+        <img id="Jacketid" src="images/Blue Hat 1.avif" style="display: none;" />
+
         <button onclick="showImage('Shirtid')">Click For Shirt!</button>
-        <img id="Shirtid" src="C:\\Users\\SAAS_User\\Downloads\\Blue Hat 1.avif" style="display: none;" ></img>
-    
+        <img id="Shirtid" src="images/Blue Hat 1.avif" style="display: none;" />
+
         <button onclick="showImage('Pantid')">Click For Pants!</button>
-        <img id="Pantid" src="C:\\Users\\SAAS_User\\Downloads\\Blue Hat 1.avif" style="display: none;" ></img>
-    
+        <img id="Pantid" src="images/Blue Hat 1.avif" style="display: none;" />
+
         <button onclick="showImage('Shoeid')">Click For Shoes!</button>
-        <img id="Shoeid" src="C:\\Users\\SAAS_User\\Downloads\\Blue Hat 1.avif" style="display: none;" ></img>
+        <img id="Shoeid" src="images/Blue Hat 1.avif" style="display: none;" />
     </div>
 
-
-
     <script src="script.js"></script>
-    <h2> This is a sprint projcet called cher's closet by Calvin Brost, and Nora Hajduk.</h2>
-    <h2> The pourpose of this project is to have a way of archiving one's closet and being able to use this website to contruct an outfit for them from that archive, </h2>
-    <h2> hence: cher's closet</h2>
-
+    <h2>This is a sprint project called Cher's Closet by Calvin Brost and Nora Hajduk.</h2>
+    <h2>The purpose of this project is to have a way of archiving one's closet and being able to use this website to construct an outfit for them from that archive,</h2>
+    <h2>hence: Cher's Closet</h2>
 </body>
 </html>
