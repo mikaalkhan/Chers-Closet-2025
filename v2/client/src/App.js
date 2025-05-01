@@ -1,59 +1,124 @@
-import React, { useState } from 'react';
 import './style.css';
+import React, { useState } from "react";
+import {
+  hatvalues,
+  shirtvalues,
+  jacketvalues,
+  pantvalues,
+  shoesvalues,
+} from "./data";
 
-const App = () => {
-  const [visibleImage, setVisibleImage] = useState('');
+function App() {
+  const [filters, setFilters] = useState({ formality: [], temperature: [], color: [] });
+  const [outfit, setOutfit] = useState(null);
 
-  const showImage = (id) => {
-    setVisibleImage(id);
+  const handleFilterChange = (type, value) => {
+    setFilters((prev) => {
+      const updated = [...prev[type]];
+      const index = updated.indexOf(value);
+      if (index > -1) updated.splice(index, 1);
+      else updated.push(value);
+      return { ...prev, [type]: updated };
+    });
   };
 
-  const pickRandomNumber = () => {
-    alert(`Random outfit number: ${Math.floor(Math.random() * 100)}`);
+  const getFilteredItems = (items) => {
+    return items.filter((item) =>
+      (filters.formality.length === 0 || filters.formality.includes(item.formal)) &&
+      (filters.temperature.length === 0 || filters.temperature.includes(item.temperature)) &&
+      (filters.color.length === 0 || filters.color.includes(item.color.toLowerCase()))
+    );
   };
+
+  const pickRandomOutfit = () => {
+    const hat = getFilteredItems(hatvalues);
+    const jacket = getFilteredItems(jacketvalues);
+    const shirt = getFilteredItems(shirtvalues);
+    const pants = getFilteredItems(pantvalues);
+    const shoes = getFilteredItems(shoesvalues);
+
+    if ([hat, jacket, shirt, pants, shoes].some(arr => arr.length === 0)) {
+      alert("No items match the current filters.");
+      return;
+    }
+
+    const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    setOutfit({
+      hat: getRandom(hat),
+      jacket: getRandom(jacket),
+      shirt: getRandom(shirt),
+      pants: getRandom(pants),
+      shoes: getRandom(shoes),
+    });
+  };
+
+  const renderImage = (label, item) => (
+    <div>
+      <h4>{label}</h4>
+      {item && <img src={item.image} alt={label} style={{ height: 100 }} />}
+    </div>
+  );
 
   return (
     <div>
-      <h1>Cher's Closet Project</h1>
+      <h1>Chers Closet</h1>
 
-      {/* Formality */}
-      <h2>Formality</h2>
-      <label>
-        <input type="checkbox" className="filter" data-type="formality" value="true" /> Formal
-      </label>
-      <label>
-        <input type="checkbox" className="filter" data-type="formality" value="false" /> Casual
-      </label>
+      <div>
+        <h3>Filters</h3>
 
-      {/* Temperature */}
-      <h2>Temp</h2>
-      <label>
-        <input type="checkbox" className="filter" data-type="temperature" value="warm" /> Warm
-      </label>
-      <label>
-        <input type="checkbox" className="filter" data-type="temperature" value="cool" /> Cool
-      </label>
+        <div>
+          <h4>Formality</h4>
+          {["true", "false"].map((v) => (
+            <label key={v}>
+              <input
+                type="checkbox"
+                onChange={() => handleFilterChange("formality", v)}
+              />
+              {v}
+            </label>
+          ))}
+        </div>
 
-      {/* Color */}
-      <h2>Color</h2>
-      {['blue', 'ivory', 'black', 'white', 'brown', 'grey'].map((color) => (
-        <label key={color}>
-          <input type="checkbox" className="filter" data-type="color" value={color} /> {color.charAt(0).toUpperCase() + color.slice(1)}
-        </label>
-      ))}
+        <div>
+          <h4>Temperature</h4>
+          {["warm", "cool"].map((v) => (
+            <label key={v}>
+              <input
+                type="checkbox"
+                onChange={() => handleFilterChange("temperature", v)}
+              />
+              {v}
+            </label>
+          ))}
+        </div>
 
-      <h1> ________ </h1>
-      <button onClick={pickRandomNumber}>Click For Random Outfit</button>
-
-      <div className="image_container">
-        {['Hat', 'Jacket', 'Shirt', 'Pant', 'Shoe'].map((item) => (
-          <div key={item}>
-            <button onClick={() => showImage(item + 'id')}>Click For {item}!</button>
-          </div>
-        ))}
+        <div>
+          <h4>Color</h4>
+          {["blue", "ivory", "black", "white", "purple", "brown", "grey"].map((v) => (
+            <label key={v}>
+              <input
+                type="checkbox"
+                onChange={() => handleFilterChange("color", v)}
+              />
+              {v}
+            </label>
+          ))}
+        </div>
       </div>
+
+      <button onClick={pickRandomOutfit}>Pick Random Outfit</button>
+
+      {outfit && (
+        <div style={{ display: "flex", gap: 20, marginTop: 20 }}>
+          {renderImage("Hat", outfit.hat)}
+          {renderImage("Jacket", outfit.jacket)}
+          {renderImage("Shirt", outfit.shirt)}
+          {renderImage("Pants", outfit.pants)}
+          {renderImage("Shoes", outfit.shoes)}
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default App;
