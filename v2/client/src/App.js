@@ -49,12 +49,6 @@ const App = () => {
         {['Hat', 'Jacket', 'Shirt', 'Pant', 'Shoe'].map((item) => (
           <div key={item}>
             <button onClick={() => showImage(item + 'id')}>Click For {item}!</button>
-            <img
-              id={item + 'id'}
-              src="images/Blue Hat 1.avif"
-              alt={item}
-              style={{ display: visibleImage === item + 'id' ? 'block' : 'none' }}
-            />
           </div>
         ))}
       </div>
