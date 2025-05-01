@@ -1,4 +1,5 @@
 import './style.css';
+import { Button, Checkbox } from 'antd';
 import React, { useState } from "react";
 import {
   hatvalues,
@@ -70,8 +71,7 @@ function App() {
           <h4>Formality</h4>
           {["true", "false"].map((v) => (
             <label key={v}>
-              <input
-                type="checkbox"
+              <Checkbox
                 onChange={() => handleFilterChange("formality", v)}
               />
               {v}
@@ -83,8 +83,7 @@ function App() {
           <h4>Temperature</h4>
           {["warm", "cool"].map((v) => (
             <label key={v}>
-              <input
-                type="checkbox"
+              <Checkbox
                 onChange={() => handleFilterChange("temperature", v)}
               />
               {v}
@@ -96,8 +95,7 @@ function App() {
           <h4>Color</h4>
           {["blue", "ivory", "black", "white", "purple", "brown", "grey"].map((v) => (
             <label key={v}>
-              <input
-                type="checkbox"
+              <Checkbox
                 onChange={() => handleFilterChange("color", v)}
               />
               {v}
@@ -106,7 +104,7 @@ function App() {
         </div>
       </div>
 
-      <button onClick={pickRandomOutfit}>Pick Random Outfit</button>
+      <Button onClick={pickRandomOutfit}>Pick Random Outfit</Button>
 
       {outfit && (
         <div style={{ display: "flex", gap: 20, marginTop: 20 }}>
