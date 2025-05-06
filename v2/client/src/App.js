@@ -1,6 +1,6 @@
 import './style.css';
-import { Button, Checkbox } from 'antd';
-import React, { useState, Image, Layout} from "react";// do image stuff
+import { Layout, Typography, Checkbox, Button, Space } from "antd";
+import React, { useState } from "react";
 import {
   hatvalues,
   shirtvalues,
@@ -9,7 +9,8 @@ import {
   shoesvalues,
 } from "./data";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
+const { Title } = Typography;
 
 function App() {
   const [filters, setFilters] = useState({ formality: [], temperature: [], color: [] });
@@ -27,7 +28,7 @@ function App() {
 
   const getFilteredItems = (items) => {
     return items.filter((item) =>
-      (filters.formality.length === 0 || filters.formality.includes(item.formal)) &&
+      (filters.formality.length === 0 || filters.formality.includes(String(item.formal))) &&
       (filters.temperature.length === 0 || filters.temperature.includes(item.temperature)) &&
       (filters.color.length === 0 || filters.color.includes(item.color.toLowerCase()))
     );
@@ -63,66 +64,62 @@ function App() {
   );
 
   return (
-    <Layout>
-    <Header style={{ display: 'flex', alignItems: 'center' }}>
-    <div className="demo-logo" />
-    <h1>Chers Closet</h1>
-  </Header>
-  <Sider
-            >
-          </Sider>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Header style={{ background: "#001529", padding: "0 20px" }}>
+        <Title level={3} style={{ color: "white", lineHeight: "64px", margin: 0 }}>
+          Chers Closet
+        </Title>
+      </Header>
 
-      <div>
-        <h3>Filters</h3>
+      <Layout>
+        <Sider width={250} style={{ background: "#001529", padding: "1rem" }}>
+          <Title level={4} style={{ color: "white" }}>Filters</Title>
 
-        <div>
-          <h4>Formality</h4>
-          {["true", "false"].map((v) => (
-            <label key={v}>
-              <Checkbox
-                onChange={() => handleFilterChange("formality", v)}
-              />
-              {v}
-            </label>
-          ))}
-        </div>
+          <div style={{ color: "white", marginBottom: 10 }}>
+            <strong>Formality</strong>
+            <Checkbox onChange={() => handleFilterChange("formality", "true")}>True</Checkbox>
+            <Checkbox onChange={() => handleFilterChange("formality", "false")}>False</Checkbox>
+          </div>
 
-        <div>
-          <h4>Temperature</h4>
-          {["warm", "cool"].map((v) => (
-            <label key={v}>
-              <Checkbox
-                onChange={() => handleFilterChange("temperature", v)}
-              />
-              {v}
-            </label>
-          ))}
-        </div>
+          <div style={{ color: "white", marginBottom: 10 }}>
+            <strong>Temperature</strong>
+            <Space direction="vertical">
+              {["warm", "cool"].map((v) => (
+                <Checkbox key={v} onChange={() => handleFilterChange("temperature", v)}>
+                  {v}
+                </Checkbox>
+              ))}
+            </Space>
+          </div>
 
-        <div>
-          <h4>Color</h4>
-          {["blue", "ivory", "black", "white", "purple", "brown", "grey"].map((v) => (
-            <label key={v}>
-              <Checkbox
-                onChange={() => handleFilterChange("color", v)}
-              />
-              {v}
-            </label>
-          ))}
-        </div>
-      </div>
+          <div style={{ color: "white", marginBottom: 10 }}>
+            <strong>Color</strong>
+            <Space direction="vertical">
+              {["blue", "ivory", "black", "white", "purple", "brown", "grey"].map((v) => (
+                <Checkbox key={v} onChange={() => handleFilterChange("color", v)}>
+                  {v}
+                </Checkbox>
+              ))}
+            </Space>
+          </div>
 
-      <Button onClick={pickRandomOutfit}>Pick Random Outfit</Button>
+          <Button type="primary" onClick={pickRandomOutfit} style={{ marginTop: 20 }}>
+            Pick Random Outfit
+          </Button>
+        </Sider>
 
-      {outfit && (
-        <div style={{ display: "flex", gap: 20, marginTop: 20 }}>
-          {renderImage("Hat", outfit.hat)}
-          {renderImage("Jacket", outfit.jacket)}
-          {renderImage("Shirt", outfit.shirt)}
-          {renderImage("Pants", outfit.pants)}
-          {renderImage("Shoes", outfit.shoes)}
-        </div>
-      )}
+        <Content style={{ padding: "2rem", background: "#f5f5f5" }}>
+          {outfit && (
+            <div style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
+              {renderImage("Hat", outfit.hat)}
+              {renderImage("Jacket", outfit.jacket)}
+              {renderImage("Shirt", outfit.shirt)}
+              {renderImage("Pants", outfit.pants)}
+              {renderImage("Shoes", outfit.shoes)}
+            </div>
+          )}
+        </Content>
+      </Layout>
     </Layout>
   );
 }
