@@ -1,6 +1,6 @@
 import './style.css';
 import { Button, Checkbox } from 'antd';
-import React, { useState } from "react";
+import React, { useState, Image, Layout} from "react";// do image stuff
 import {
   hatvalues,
   shirtvalues,
@@ -8,6 +8,8 @@ import {
   pantvalues,
   shoesvalues,
 } from "./data";
+
+const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
   const [filters, setFilters] = useState({ formality: [], temperature: [], color: [] });
@@ -61,8 +63,14 @@ function App() {
   );
 
   return (
-    <div>
-      <h1>Chers Closet</h1>
+    <Layout>
+    <Header style={{ display: 'flex', alignItems: 'center' }}>
+    <div className="demo-logo" />
+    <h1>Chers Closet</h1>
+  </Header>
+  <Sider
+            >
+          </Sider>
 
       <div>
         <h3>Filters</h3>
@@ -115,7 +123,7 @@ function App() {
           {renderImage("Shoes", outfit.shoes)}
         </div>
       )}
-    </div>
+    </Layout>
   );
 }
 
