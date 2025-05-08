@@ -1,6 +1,7 @@
 import './style.css';
-import { Layout, Typography, Checkbox, Button, Space } from "antd";
+import { Layout, Typography, Checkbox, Button, Space, Carousel } from "antd";
 import React, { useState } from "react";
+import MyHeader from './assets/header';
 import {
   hatvalues,
   shirtvalues,
@@ -12,9 +13,24 @@ import {
 const { Header, Content, Sider, Footer } = Layout;
 const { Title } = Typography;
 
+const contentStyle = {
+  margin: 0,
+  height: '160px',
+  color: 'blue',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#364d79',
+};
+
 function App() {
   const [filters, setFilters] = useState({ formality: [], temperature: [], color: [] });
   const [outfit, setOutfit] = useState(null);
+
+  /**
+   * TODO: WRITE COMMENTS FOR THINGS
+   * @param {*} type 
+   * @param {*} value 
+   */
 
   const handleFilterChange = (type, value) => {
     setFilters((prev) => {
@@ -59,25 +75,68 @@ function App() {
   const renderImage = (label, item) => (
     <div>
       <h4>{label}</h4>
-      {item && <img src={item.image} alt={label} style={{ height: 100 }} />}
+      <Carousel arrows={true} style={{height: 100, color: 'blue'}}>
+        <div>
+          {item && <img src={item.image} alt={label} style={contentStyle} />}          
+        </div>
+        <div>
+          {item && <img src={item.image} alt={label} style={contentStyle} />}          
+        </div>
+      </Carousel>
     </div>
   );
 
+// const App: React.FC = () => (
+//   <>
+    // <Carousel arrows infinite={false}>
+    //   <div>
+    //     <h3 style={contentStyle}>
+    //     {renderImage("Hat", outfit.hat)}
+    //     </h3>
+    //   </div>
+    //   <div>
+    //     <h3 style={contentStyle}>2</h3>
+    //   </div>
+    //   <div>
+    //     <h3 style={contentStyle}>3</h3>
+    //   </div>
+    //   <div>
+    //     <h3 style={contentStyle}>4</h3>
+    //   </div>
+    // </Carousel>
+//   </>
+// );
+
+// export default App;
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Header style={{ background: "#ffffff", padding: "0 20px" }}>
-        <Title level={3} style={{ color: "black", lineHeight: "64px", margin: 0 }}>
-          Chers Closet
-        </Title>
-      </Header>
-
+      <MyHeader/>
       <Layout>
   
 
+
         <Content style={{ padding: "2rem", background: "#f5f5f5" }}>
+          {/* <Carousel arrows infinite={false}>
+          <div>
+            <h3>
+            {renderImage("Hat", outfit.hat)}
+            </h3>
+          </div>
+          <div>
+            <h3 >2</h3>
+          </div>
+          <div>
+            <h3 >3</h3>
+          </div>
+          <div>
+            <h3 >4</h3>
+          </div>
+        </Carousel> */}
+
           {outfit && (
-            <div style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
-              {renderImage("Hat", outfit.hat)}
+            <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+              
               {renderImage("Jacket", outfit.jacket)}
               {renderImage("Shirt", outfit.shirt)}
               {renderImage("Pants", outfit.pants)}
@@ -85,7 +144,7 @@ function App() {
             </div>
           )}
         </Content>
-        <Sider width={250} style={{ background: "#ffffff", padding: "1rem", color: "black", overflow: "auto", height: "100vh", position: "sticky", top: 0 }}>
+        <Sider width={250} style={{ background: "#ffffff", padding: "1rem", color: "black", overflow: "auto", height: "100vh", position: "sticky", top: 0, Bottom: 0 }}>
             <div style={{ paddingRight: "1rem" }}>
                 <Title level={4} style={{ color: "black" }}>Filters</Title>
 
@@ -102,6 +161,7 @@ function App() {
 
                 <div style={{ marginBottom: 24, borderBottom: "1px solid #ddd", paddingBottom: 16 }}>
                 <strong>Temperature</strong>
+                <div>
                 <Space direction="vertical">
                     {["warm", "cool"].map((v) => (
                     <Checkbox key={v} onChange={() => handleFilterChange("temperature", v)}>
@@ -110,9 +170,11 @@ function App() {
                     ))}
                 </Space>
                 </div>
+                </div>
 
                 <div style={{ marginBottom: 24, borderBottom: "1px solid #ddd", paddingBottom: 16 }}>
                 <strong>Color</strong>
+                <div>
                 <Space direction="vertical">
                     {["blue", "ivory", "black", "white", "purple", "brown", "grey"].map((v) => (
                     <Checkbox key={v} onChange={() => handleFilterChange("color", v)}>
@@ -120,6 +182,7 @@ function App() {
                     </Checkbox>
                     ))}
                 </Space>
+                </div>
                 </div>
 
                 <Button type="primary" onClick={pickRandomOutfit} style={{ marginTop: 20 }}>
@@ -131,7 +194,7 @@ function App() {
       </Layout>
       <Footer style={{ background: "#ffffff", padding: "0 20px" }}>
         <Title level={3} style={{ color: "black", lineHeight: "64px", margin: 0 }}>
-          Contact us at calvinbrost@seattleacademy.org
+          Contact us at mikaalkhan@seattleacademy.org 
         </Title>
       </Footer>
     </Layout>
