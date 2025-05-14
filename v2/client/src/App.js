@@ -13,18 +13,12 @@ import {
 const { Header, Content, Sider, Footer } = Layout;
 const { Title } = Typography;
 
-const contentStyle = {
-  margin: 0,
-  height: '160px',
-  color: 'blue',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
-
 function App() {
   const [filters, setFilters] = useState({ formality: [], temperature: [], color: [] });
   const [outfit, setOutfit] = useState(null);
+  const [filteredOptions, setFilteredOptions] = useState(null);
+  const [frozenFilteredItems, setFrozenFilteredItems] = useState(null);
+
 
   /**
    * TODO: WRITE COMMENTS FOR THINGS
@@ -56,35 +50,36 @@ function App() {
     const shirt = getFilteredItems(shirtvalues);
     const pants = getFilteredItems(pantvalues);
     const shoes = getFilteredItems(shoesvalues);
-
-    if ([hat, jacket, shirt, pants, shoes].some(arr => arr.length === 0)) {
-      alert("No items match the current filters.");
-      return;
-    }
-
-    const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  
     setOutfit({
-      hat: getRandom(hat),
-      jacket: getRandom(jacket),
-      shirt: getRandom(shirt),
-      pants: getRandom(pants),
-      shoes: getRandom(shoes),
+      hat: hat[Math.floor(Math.random() * hat.length)],
+      jacket: jacket[Math.floor(Math.random() * jacket.length)],
+      shirt: shirt[Math.floor(Math.random() * shirt.length)],
+      pants: pants[Math.floor(Math.random() * pants.length)],
+      shoes: shoes[Math.floor(Math.random() * shoes.length)],
     });
+  
+    // Freeze the current filtered state
+    setFrozenFilteredItems({ hat, jacket, shirt, pants, shoes });
   };
 
-  const renderImage = (label, item) => (
+  const renderImageList = (label, items) => (
     <div>
       <h4>{label}</h4>
-      <Carousel arrows={true} style={{height: 100, color: 'blue'}}>
-        <div>
-          {item && <img src={item.image} alt={label} style={contentStyle} />}          
-        </div>
-        <div>
-          {item && <img src={item.image} alt={label} style={contentStyle} />}          
-        </div>
+      <Carousel arrows style={{ height: 160.}}>
+        {items.map((item, index) => (
+          <div key={index}>
+            <img
+              src={item.image}
+              alt={`${label} ${index}`}
+              style={{ width: '100%', maxHeight: '160px', objectFit: 'contain' }}
+            />
+          </div>
+        ))}
       </Carousel>
     </div>
   );
+  
 
 // const App: React.FC = () => (
 //   <>
@@ -133,16 +128,16 @@ function App() {
             <h3 >4</h3>
           </div>
         </Carousel> */}
-
-          {outfit && (
+          {outfit && frozenFilteredItems && (
             <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-              
-              {renderImage("Jacket", outfit.jacket)}
-              {renderImage("Shirt", outfit.shirt)}
-              {renderImage("Pants", outfit.pants)}
-              {renderImage("Shoes", outfit.shoes)}
+              {renderImageList("Hat", frozenFilteredItems.hat)}
+              {renderImageList("Jacket", frozenFilteredItems.jacket)}
+              {renderImageList("Shirt", frozenFilteredItems.shirt)}
+              {renderImageList("Pants", frozenFilteredItems.pants)}
+              {renderImageList("Shoes", frozenFilteredItems.shoes)}
             </div>
           )}
+
         </Content>
         <Sider width={250} style={{ background: "#ffffff", padding: "1rem", color: "black", overflow: "auto", height: "100vh", position: "sticky", top: 0, Bottom: 0 }}>
             <div style={{ paddingRight: "1rem" }}>
