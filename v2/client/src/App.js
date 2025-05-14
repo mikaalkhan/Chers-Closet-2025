@@ -81,28 +81,7 @@ function App() {
   );
   
 
-// const App: React.FC = () => (
-//   <>
-    // <Carousel arrows infinite={false}>
-    //   <div>
-    //     <h3 style={contentStyle}>
-    //     {renderImage("Hat", outfit.hat)}
-    //     </h3>
-    //   </div>
-    //   <div>
-    //     <h3 style={contentStyle}>2</h3>
-    //   </div>
-    //   <div>
-    //     <h3 style={contentStyle}>3</h3>
-    //   </div>
-    //   <div>
-    //     <h3 style={contentStyle}>4</h3>
-    //   </div>
-    // </Carousel>
-//   </>
-// );
 
-// export default App;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
