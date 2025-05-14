@@ -30,3 +30,8 @@ button {
     margin: 5px;
     /* align-content: center; */
 }
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next {
+  color: #B0B0B0;
+}
