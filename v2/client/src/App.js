@@ -9,6 +9,7 @@ import {
   pantvalues,
   shoesvalues,
 } from "./data";
+import ImageRenderer from './assets/renderimage';
 
 const { Header, Content, Sider, Footer } = Layout;
 const { Title } = Typography;
@@ -58,28 +59,21 @@ function App() {
       pants: pants[Math.floor(Math.random() * pants.length)],
       shoes: shoes[Math.floor(Math.random() * shoes.length)],
     });
-  
-    // Freeze the current filtered state
-    setFrozenFilteredItems({ hat, jacket, shirt, pants, shoes });
   };
 
-  const renderImageList = (label, items) => (
+  const renderImage = (label, item) => (
     <div>
       <h4>{label}</h4>
-      <Carousel arrows style={{ height: 160.}}>
-        {items.map((item, index) => (
-          <div key={index}>
-            <img
-              src={item.image}
-              alt={`${label} ${index}`}
-              style={{ width: '100%', maxHeight: '160px', objectFit: 'contain' }}
-            />
-          </div>
-        ))}
+      <Carousel arrows={true} style={{height: 100, color: 'blue'}}>
+        <div>
+          {item && <img src={item.image} alt={label} style={contentStyle} />}          
+        </div>
+        <div>
+          {item && <img src={item.image} alt={label} style={contentStyle} />}          
+        </div>
       </Carousel>
     </div>
   );
-  
 
 // const App: React.FC = () => (
 //   <>
@@ -128,16 +122,16 @@ function App() {
             <h3 >4</h3>
           </div>
         </Carousel> */}
-          {outfit && frozenFilteredItems && (
+
+          {outfit && (
             <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-              {renderImageList("Hat", frozenFilteredItems.hat)}
-              {renderImageList("Jacket", frozenFilteredItems.jacket)}
-              {renderImageList("Shirt", frozenFilteredItems.shirt)}
-              {renderImageList("Pants", frozenFilteredItems.pants)}
-              {renderImageList("Shoes", frozenFilteredItems.shoes)}
+              
+              {renderImage("Jacket", outfit.jacket)}
+              {renderImage("Shirt", outfit.shirt)}
+              {renderImage("Pants", outfit.pants)}
+              {renderImage("Shoes", outfit.shoes)}
             </div>
           )}
-
         </Content>
         <Sider width={250} style={{ background: "#ffffff", padding: "1rem", color: "black", overflow: "auto", height: "100vh", position: "sticky", top: 0, Bottom: 0 }}>
             <div style={{ paddingRight: "1rem" }}>
