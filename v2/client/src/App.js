@@ -9,18 +9,10 @@ import {
   pantvalues,
   shoesvalues,
 } from "./data";
+import ImageRenderer from './assets/renderimage';
 
 const { Header, Content, Sider, Footer } = Layout;
 const { Title } = Typography;
-
-const contentStyle = {
-  margin: 0,
-  height: '160px',
-  color: 'blue',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
 
 function App() {
   const [filters, setFilters] = useState({ formality: [], temperature: [], color: [] });
@@ -70,44 +62,8 @@ function App() {
       pants: getRandom(pants),
       shoes: getRandom(shoes),
     });
-  };
+  }
 
-  const renderImage = (label, item) => (
-    <div>
-      <h4>{label}</h4>
-      <Carousel arrows={true} style={{height: 100, color: 'blue'}}>
-        <div>
-          {item && <img src={item.image} alt={label} style={contentStyle} />}          
-        </div>
-        <div>
-          {item && <img src={item.image} alt={label} style={contentStyle} />}          
-        </div>
-      </Carousel>
-    </div>
-  );
-
-// const App: React.FC = () => (
-//   <>
-    // <Carousel arrows infinite={false}>
-    //   <div>
-    //     <h3 style={contentStyle}>
-    //     {renderImage("Hat", outfit.hat)}
-    //     </h3>
-    //   </div>
-    //   <div>
-    //     <h3 style={contentStyle}>2</h3>
-    //   </div>
-    //   <div>
-    //     <h3 style={contentStyle}>3</h3>
-    //   </div>
-    //   <div>
-    //     <h3 style={contentStyle}>4</h3>
-    //   </div>
-    // </Carousel>
-//   </>
-// );
-
-// export default App;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -117,32 +73,7 @@ function App() {
 
 
         <Content style={{ padding: "2rem", background: "#f5f5f5" }}>
-          {/* <Carousel arrows infinite={false}>
-          <div>
-            <h3>
-            {renderImage("Hat", outfit.hat)}
-            </h3>
-          </div>
-          <div>
-            <h3 >2</h3>
-          </div>
-          <div>
-            <h3 >3</h3>
-          </div>
-          <div>
-            <h3 >4</h3>
-          </div>
-        </Carousel> */}
-
-          {outfit && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-              
-              {renderImage("Jacket", outfit.jacket)}
-              {renderImage("Shirt", outfit.shirt)}
-              {renderImage("Pants", outfit.pants)}
-              {renderImage("Shoes", outfit.shoes)}
-            </div>
-          )}
+          <ImageRenderer outfit={outfit}/>
         </Content>
         <Sider width={250} style={{ background: "#ffffff", padding: "1rem", color: "black", overflow: "auto", height: "100vh", position: "sticky", top: 0, Bottom: 0 }}>
             <div style={{ paddingRight: "1rem" }}>
