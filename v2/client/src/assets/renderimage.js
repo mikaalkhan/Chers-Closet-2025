@@ -2,39 +2,37 @@ import React, { useState } from "react";
 // import { } from "./App.js";
 import { Carousel } from "antd";
 
-const contentStyle = {
-  margin: 0,
-  height: '160px',
-  color: 'blue',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
 
-const renderImage = (label, item) => (
+
+const renderImageList = (label, items) => (
     <div>
       <h4>{label}</h4>
-      <Carousel arrows={true} style={{height: 100, color: 'blue'}}>
-        <div>
-          {item && <img src={item.image} alt={label} style={contentStyle} />}          
-        </div>
-        <div>
-          {item && <img src={item.image} alt={label} style={contentStyle} />}          
-        </div>
+      <Carousel arrows style={{ height: 160.}}>
+        {items.map((item, index) => (
+          <div key={index}>
+            <img
+              src={item.image}
+              alt={`${label} ${index}`}
+              style={{ width: '100%', maxHeight: '160px', objectFit: 'contain' }}
+            />
+          </div>
+        ))}
       </Carousel>
     </div>
   );
 
 function ImageRenderer({ outfit }) {
   return (
-    outfit && (
-      <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-        {renderImage("Jacket", outfit.jacket)}
-        {renderImage("Shirt", outfit.shirt)}
-        {renderImage("Pants", outfit.pants)}
-        {renderImage("Shoes", outfit.shoes)}
-      </div>
-    )
+
+          outfit && frozenFilteredItems && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+              {renderImageList("Hat", frozenFilteredItems.hat)}
+              {renderImageList("Jacket", frozenFilteredItems.jacket)}
+              {renderImageList("Shirt", frozenFilteredItems.shirt)}
+              {renderImageList("Pants", frozenFilteredItems.pants)}
+              {renderImageList("Shoes", frozenFilteredItems.shoes)}
+            </div>
+          )
   );
 }
 
