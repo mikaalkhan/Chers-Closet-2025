@@ -1,19 +1,12 @@
 import React, { useState } from "react";
-import './style.css';
-import { Layout, Typography, Checkbox, Button, Space, Carousel } from "antd";
 
-  const handleFilterChange = (type, value) => {
-    setFilters((prev) => {
-      const updated = [...prev[type]];
-      const index = updated.indexOf(value);
-      if (index > -1) updated.splice(index, 1);
-      else updated.push(value);
-      return { ...prev, [type]: updated };
-    });
-  };
+import {Checkbox, Button, Space} from "antd";
+import Sider from "antd/es/layout/Sider";
+import Title from "antd/es/skeleton/Title";
 
-function fslider() {
-    
+
+function FSlider({pickRandomOutfit, handleFilterChange}) {
+    return (
 
     <Sider width={250} style={{ background: "#ffffff", padding: "1rem", color: "black", overflow: "auto", height: "100vh", position: "sticky", top: 0, Bottom: 0 }}>
                 <div style={{ paddingRight: "1rem" }}>
@@ -61,6 +54,8 @@ function fslider() {
                     </Button>
                 </div>
             </Sider>
+            )
+
 }
 
-export default fslider;
+export default FSlider;

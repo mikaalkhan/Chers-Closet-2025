@@ -21,7 +21,7 @@ const renderImageList = (label, items) => (
     </div>
   );
 
-function ImageRenderer({ outfit }) {
+function ImageRenderer({ outfit, frozenFilteredItems }) {
   return (
 
           outfit && frozenFilteredItems && (
