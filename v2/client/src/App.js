@@ -11,6 +11,7 @@ import {
 } from "./data";
 import ImageRenderer from './assets/renderimage';
 import FSlider from './assets/sider';
+import ImageUpload from './assets/imageupload';
 
 const { Header, Content, Sider, Footer } = Layout;
 const { Title } = Typography;
@@ -105,6 +106,9 @@ function App() {
         <Title level={3} style={{ color: "black", lineHeight: "64px", margin: 0 }}>
           Contact us at mikaalkhan@seattleacademy.org 
         </Title>
+        <h1>Upload an Image</h1>
+        <ImageUpload />
+        
       </Footer>
     </Layout>
   );
