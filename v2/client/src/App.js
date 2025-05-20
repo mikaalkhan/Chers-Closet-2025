@@ -12,6 +12,7 @@ import {
 import ImageRenderer from './assets/renderimage';
 import FSlider from './assets/sider';
 import ImageUpload from './assets/imageupload';
+import LocalImageHandler from './assets/imageupload';
 
 const { Header, Content, Sider, Footer } = Layout;
 const { Title } = Typography;
@@ -67,22 +68,7 @@ function App() {
     setFrozenFilteredItems({ hat, jacket, shirt, pants, shoes });
   };
 
-  const renderImageList = (label, items) => (
-    <div>
-      <h4>{label}</h4>
-      <Carousel arrows style={{ height: 160.}}>
-        {items.map((item, index) => (
-          <div key={index}>
-            <img
-              src={item.image}
-              alt={`${label} ${index}`}
-              style={{ width: '100%', maxHeight: '160px', objectFit: 'contain' }}
-            />
-          </div>
-        ))}
-      </Carousel>
-    </div>
-  );
+
   
 
 
@@ -107,7 +93,7 @@ function App() {
           Contact us at mikaalkhan@seattleacademy.org 
         </Title>
         <h1>Upload an Image</h1>
-        <ImageUpload />
+        <LocalImageHandler />
         
       </Footer>
     </Layout>
