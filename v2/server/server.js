@@ -73,12 +73,29 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
             content: [
               {
                 type: "text",
-                text: "Describe the image.",
+                text: `You're a clothing classifier. Based on the image provided, return a JSON object like the following:
+                {
+                  "formality": one of ["formal", "business casual", "casual", "athleisure", "streetwear"],
+                  "temperature": one of ["summer", "winter", "transitional"],
+                  "colors": array of colors from ["black", "white", "grey", "silver", "gold", "purple", "brown", "tan", "green", "orange", "pink", "maroon", "yellow", "multicolor", "N/A"],
+                  "description": {
+                    "type": (e.g., "jacket", "pants", "shirt"),
+                    "style": (e.g., "puffer", "denim", "crewneck"),
+                    "fit": (e.g., "slim", "regular", "oversized"),
+                    "material": (e.g., "cotton", "wool", "synthetic"),
+                    "intended_use": (e.g., "formal", "sport", "casual"),
+                    "features": array of key features like "insulated", "hooded", "zippered", etc.
+                    "anything_else": information not covered in the other fields
+
+                  }
+                }
+
+                Strictly match only allowed values. Respond with nothing except the JSON object.`
               },
               {
                 type: "image_url",
                 image_url: {
-                  url: `data:${req.file.mimetype};base64,${base64Image}`,
+                  url: `data:image/webp;base64,${base64Image}`,
                 },
               },
             ],
@@ -105,45 +122,3 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
 app.listen(5001, () => console.log("Server listening on port 5001"));
 
 
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-
-const app = express();
-const PORT = 5000;
-
-// Create the uploads directory if it doesn't exist
-const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-
-// Configure Multer for file uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  }
-});
-const upload = multer({ storage });
-
-// Serve static files from the uploads directory
-app.use('/images', express.static(uploadDir));
-
-// Upload endpoint
-app.post('/upload', upload.single('image'), (req, res) => {
-  const file = req.file;
-  if (!file) return res.status(400).send('No file uploaded.');
-
-  // Return the public URL for the image
-  const imageUrl = `http://localhost:${PORT}/images/${file.filename}`;
-  res.send({ imageUrl });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
