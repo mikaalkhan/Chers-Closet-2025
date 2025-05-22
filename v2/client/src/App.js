@@ -71,7 +71,7 @@ function App() {
   };
   
   const imageTest = async () => {
-    const filename = "example.webp"; // Change this to your actual file name
+    const filename = "example.jpg"; // Change this to your actual file name
     const imageUrl = `/unclassifiedImages/${filename}`;
   
     try {
