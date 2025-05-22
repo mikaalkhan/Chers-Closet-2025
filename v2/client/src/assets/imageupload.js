@@ -17,6 +17,7 @@ function ImageUploader() {
 
     try {
       const res = await axios.post('http://localhost:5000/upload', formData);
+      console.log(res) 
       setImageUrl(res.data.imageUrl);
     } catch (err) {
       console.error(err);

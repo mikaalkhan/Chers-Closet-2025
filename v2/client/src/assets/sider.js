@@ -1,64 +1,63 @@
 import React, { useState } from "react";
-
-import {Checkbox, Button, Space} from "antd";
+import { Checkbox, Button, Space, Typography, Input } from "antd";
 import Sider from "antd/es/layout/Sider";
-import Title from "antd/es/skeleton/Title";
 
+const { Title } = Typography;
 
-function FSlider({pickRandomOutfit, handleFilterChange, imageTest}) {
-    return (
+function FSlider({ pickRandomOutfit, handleFilterChange, imageTest }) {
+  const [prompt, setPrompt] = useState("");
 
-    <Sider width={250} style={{ background: "#ffffff", padding: "1rem", color: "black", overflow: "auto", height: "100vh", position: "sticky", top: 0, Bottom: 0 }}>
-            <div style={{ paddingRight: "1rem" }}>
-                <Title level={4} style={{ color: "black" }}>Filters</Title>
+  const handleSubmitPrompt = () => {
+    console.log("Submitted prompt:", prompt);
+    // You can send this to your backend or do something else with it
+  };
 
-                <div style={{ marginBottom: 24, borderBottom: "1px solid #ddd", paddingBottom: 16 }}>
-                <strong>Formality</strong>
+  return (
+    <Sider
+      width={250}
+      style={{
+        background: "#ffffff",
+        padding: "1rem",
+        color: "black",
+        overflow: "auto",
+        height: "100vh",
+        position: "sticky",
+        top: 0,
+        bottom: 0,
+      }}
+    >
+      <div style={{ paddingRight: "1rem" }}>
+        <Title level={4} style={{ color: "black" }}>
+          Filters
+        </Title>
 
-                <div>
-                    <Checkbox onChange={() => handleFilterChange("formality", "true")}>True</Checkbox>
-                </div>
-                <div>
-                    <Checkbox onChange={() => handleFilterChange("formality", "false")}>False</Checkbox>
-                </div>
-                </div>
+        {/* Prompt input box */}
+        <div style={{ marginBottom: 16 }}>
+          <Input.TextArea
+            rows={3}
+            placeholder="Type your prompt here..."
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+          />
+          <Button
+            type="default"
+            onClick={handleSubmitPrompt}
+            style={{ marginTop: 8 }}
+          >
+            Submit
+          </Button>
+        </div>
 
-                <div style={{ marginBottom: 24, borderBottom: "1px solid #ddd", paddingBottom: 16 }}>
-                <strong>Temperature</strong>
-                <div>
-                <Space direction="vertical">
-                    {["warm", "cool"].map((v) => (
-                    <Checkbox key={v} onChange={() => handleFilterChange("temperature", v)}>
-                        {v}
-                    </Checkbox>
-                    ))}
-                </Space>
-                </div>
-                </div>
-
-                <div style={{ marginBottom: 24, borderBottom: "1px solid #ddd", paddingBottom: 16 }}>
-                <strong>Color</strong>
-                <div>
-                <Space direction="vertical">
-                    {["blue", "ivory", "black", "white", "purple", "brown", "grey"].map((v) => (
-                    <Checkbox key={v} onChange={() => handleFilterChange("color", v)}>
-                        {v}
-                    </Checkbox>
-                    ))}
-                </Space>
-                </div>
-                </div>
-
-                <Button type="primary" onClick={pickRandomOutfit} style={{ marginTop: 20 }}>
-                Pick Random Outfit
-                </Button>
-                <Button type="primary" onClick={imageTest} style={{ marginTop: 20 }}>
-                Test
-                </Button>
-            </div>
-        </Sider>
-            )
-
+        {/* Other Buttons */}
+        <Button type="primary" onClick={pickRandomOutfit} style={{ marginTop: 20 }}>
+          Pick Random Outfit
+        </Button>
+        {/* <Button type="primary" onClick={imageTest} style={{ marginTop: 20 }}>
+          Test
+        </Button> */}
+      </div>
+    </Sider>
+  );
 }
 
 export default FSlider;
