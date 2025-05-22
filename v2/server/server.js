@@ -103,3 +103,47 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
 });
 
 app.listen(5001, () => console.log("Server listening on port 5001"));
+
+
+const express = require('express');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+const app = express();
+const PORT = 5000;
+
+// Create the uploads directory if it doesn't exist
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
+// Configure Multer for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = Date.now() + '-' + file.originalname;
+    cb(null, uniqueName);
+  }
+});
+const upload = multer({ storage });
+
+// Serve static files from the uploads directory
+app.use('/images', express.static(uploadDir));
+
+// Upload endpoint
+app.post('/upload', upload.single('image'), (req, res) => {
+  const file = req.file;
+  if (!file) return res.status(400).send('No file uploaded.');
+
+  // Return the public URL for the image
+  const imageUrl = `http://localhost:${PORT}/images/${file.filename}`;
+  res.send({ imageUrl });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});

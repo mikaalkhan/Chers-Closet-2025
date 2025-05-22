@@ -1,45 +1,35 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-function LocalImageHandler() {
-  const [imageURL, setImageURL] = useState(null);
-  const [showImage, setShowImage] = useState(false);
+function ImageUploader() {
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
 
-  const handleImageSelect = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const localUrl = URL.createObjectURL(file);
-      setImageURL(localUrl);
-      setShowImage(false); // reset on new selection
-    }
+  const handleChange = (e) => {
+    setImage(e.target.files[0]);
   };
 
-  const handleShowImage = () => {
-    if (imageURL) {
-      setShowImage(true);
+  const handleUpload = async () => {
+    if (!image) return;
+
+    const formData = new FormData();
+    formData.append('image', image);
+
+    try {
+      const res = await axios.post('http://localhost:5000/upload', formData);
+      setImageUrl(res.data.imageUrl);
+    } catch (err) {
+      console.error(err);
     }
   };
 
   return (
     <div>
-      <h2>Select and View a Local Image</h2>
-
-      {/* Button to choose a file */}
-      <input type="file" accept="image/*" onChange={handleImageSelect} />
-
-      {/* Button to show the selected image */}
-      <button onClick={handleShowImage} disabled={!imageURL}>
-        Show Image
-      </button>
-
-      {/* Render the image only when "Show" button is clicked */}
-      {showImage && (
-        <div>
-          <p>Here is your selected image:</p>
-          <img src={imageURL} alt="Selected" style={{ maxWidth: '300px' }} />
-        </div>
-      )}
+      <input type="file" onChange={handleChange} />
+      <button onClick={handleUpload}>Upload</button>
+      {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '200px' }} />}
     </div>
   );
 }
 
-export default LocalImageHandler;
+export default ImageUploader;
