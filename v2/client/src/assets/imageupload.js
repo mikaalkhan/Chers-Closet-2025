@@ -30,12 +30,6 @@ function ImageUploader() {
     <div>
       <input type="file" onChange={handleChange} />
       <button onClick={handleUpload}>Upload</button>
-      {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '200px' }} />}
-      {result && (
-        <pre style={{ textAlign: "left" }}>
-          {JSON.stringify(result, null, 2)}
-        </pre>
-      )}
     </div>
   );
 }

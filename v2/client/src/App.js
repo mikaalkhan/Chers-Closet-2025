@@ -69,43 +69,6 @@ function App() {
     // Freeze the current filtered state
     setFrozenFilteredItems({ hat, jacket, shirt, pants, shoes });
   };
-  
-  const imageTest = async () => {
-    const filename = "example.jpg"; // Change this to your actual file name
-    const imageUrl = `/unclassifiedImages/${filename}`;
-  
-    try {
-      // Fetch image as a blob
-      const response = await fetch(imageUrl);
-      const blob = await response.blob();
-  
-      // Wrap in FormData
-      const formData = new FormData();
-      formData.append("image", new File([blob], filename, { type: blob.type }));
-  
-      // Send to backend
-      const res = await axios.post("http://localhost:5001/analyze", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-  
-      alert("Result: " + res.data.result);
-    } catch (err) {
-      console.error("Image test failed:", err);
-      alert("Failed to test image.");
-    }
-  };
-  // const imageTest = async () => {
-  //   try {
-  //     const res = await axios.post("http://localhost:5001/analyze");
-  //     alert("Result: " + res.data.result);
-  //   } catch (err) {
-  //     console.error("Test call failed:", err);
-  //     alert("Failed to get response from server.");
-  //   }
-  // };
-
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -119,7 +82,7 @@ function App() {
         <ImageRenderer outfit={outfit} frozenFilteredItems={frozenFilteredItems}/>
 
         </Content>
-        <FSlider pickRandomOutfit={pickRandomOutfit} handleFilterChange={handleFilterChange} imageTest={imageTest}/>
+        <FSlider pickRandomOutfit={pickRandomOutfit} handleFilterChange={handleFilterChange}/>
 
       </Layout>
       <Footer style={{ background: "#ffffff", padding: "0 20px" }}>

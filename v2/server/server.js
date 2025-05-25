@@ -7,13 +7,14 @@ const mysql = require("mysql2/promise");
 require("dotenv").config();
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
+// 👇 Serve uploaded images statically
+app.use('/uploads', express.static('uploads'));
+
 const upload = multer({ dest: "uploads/" });
 
-// Create MySQL connection pool
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
@@ -31,8 +32,6 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
     const imageData = fs.readFileSync(imagePath);
     const base64Image = imageData.toString("base64");
 
-    // Remove temp file
-    fs.unlinkSync(imagePath);
     const openaiRes = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -41,10 +40,7 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
           {
             role: "user",
             content: [
-              {
-                type: "text",
-                text: "Please classify this clothing image.",
-              },
+              { type: "text", text: "Please classify this clothing image." },
               {
                 type: "image_url",
                 image_url: {
@@ -54,7 +50,7 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
             ],
           },
         ],
-                functions: [
+        functions: [
           {
             name: "classify_clothing",
             description: "Returns clothing classification data",
@@ -74,21 +70,8 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
                   items: {
                     type: "string",
                     enum: [
-                      "black",
-                      "white",
-                      "grey",
-                      "silver",
-                      "gold",
-                      "purple",
-                      "brown",
-                      "tan",
-                      "green",
-                      "orange",
-                      "pink",
-                      "maroon",
-                      "yellow",
-                      "multicolor",
-                      "N/A"
+                      "black", "white", "grey", "silver", "gold", "purple", "brown",
+                      "tan", "green", "orange", "pink", "maroon", "yellow", "multicolor", "N/A"
                     ]
                   }
                 },
@@ -107,13 +90,8 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
                     anything_else: { type: "string" }
                   },
                   required: [
-                    "type",
-                    "style",
-                    "fit",
-                    "material",
-                    "intended_use",
-                    "features",
-                    "anything_else"
+                    "type", "style", "fit", "material",
+                    "intended_use", "features", "anything_else"
                   ]
                 }
               },
@@ -131,13 +109,12 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
         },
       }
     );
- 
+
     const funcCall = openaiRes.data.choices[0].message.function_call;
     const jsonResult = JSON.parse(funcCall.arguments);
     console.log("jsonResult: ", jsonResult);
 
-
-    // Insert into clothing table
+    // Save result to DB
     const connection = await pool.getConnection();
     try {
       const sql = `
@@ -145,7 +122,6 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
           (formality, temperature, colors, description_type, description_style, description_fit, description_material, description_intended_use, description_features, description_anything_else, file_name)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
-
       await connection.execute(sql, [
         jsonResult.formality,
         jsonResult.temperature,
@@ -163,7 +139,8 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
       connection.release();
     }
 
-    res.json({ result: jsonResult });
+    // 👇 Return file name with result
+    res.json({ result: { ...jsonResult, file_name: fileName } });
   } catch (err) {
     console.error("Error:", err.response?.data || err.message);
     res.status(500).json({ error: "Image analysis failed." });
