@@ -4,6 +4,7 @@ import axios from 'axios';
 function ImageUploader() {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
+  const [result, setResult] = useState(null);
 
   const handleChange = (e) => {
     setImage(e.target.files[0]);
@@ -16,9 +17,10 @@ function ImageUploader() {
     formData.append('image', image);
 
     try {
-      const res = await axios.post('http://localhost:5000/upload', formData);
-      console.log(res) 
-      setImageUrl(res.data.imageUrl);
+      const res = await axios.post('http://localhost:5001/analyze', formData);
+      const { result } = res.data;
+      setResult(result);
+      setImageUrl(`http://localhost:5001/uploads/${result.file_name}`);
     } catch (err) {
       console.error(err);
     }
@@ -29,6 +31,11 @@ function ImageUploader() {
       <input type="file" onChange={handleChange} />
       <button onClick={handleUpload}>Upload</button>
       {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '200px' }} />}
+      {result && (
+        <pre style={{ textAlign: "left" }}>
+          {JSON.stringify(result, null, 2)}
+        </pre>
+      )}
     </div>
   );
 }

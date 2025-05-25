@@ -1,50 +1,9 @@
-// const express = require("express");
-// const cors = require("cors");
-// const axios = require("axios");
-// require("dotenv").config();
-
-// const app = express();
-
-// app.use(cors());
-// app.use(express.json());
-
-// app.post("/analyze", async (req, res) => {
-//   try {
-//     const openaiRes = await axios.post(
-//       "https://api.openai.com/v1/chat/completions",
-//       {
-//         model: "gpt-4o",
-//         messages: [
-//           {
-//             role: "user",
-//             content: "Say hello from the server!",
-//           },
-//         ],
-//         max_tokens: 50,
-//       },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-
-//     const result = openaiRes.data.choices[0].message.content;
-//     res.json({ result });
-//   } catch (err) {
-//     console.error("Error calling OpenAI:", err.response?.data || err.message);
-//     res.status(500).json({ error: "Failed to get response from OpenAI." });
-//   }
-// });
-
-// app.listen(5001, () => console.log("Server listening on port 5001"));
-
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const multer = require("multer");
 const fs = require("fs");
+const mysql = require("mysql2/promise");
 require("dotenv").config();
 
 const app = express();
@@ -54,15 +13,26 @@ app.use(express.json());
 
 const upload = multer({ dest: "uploads/" });
 
+// Create MySQL connection pool
+const pool = mysql.createPool({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
+
 app.post("/analyze", upload.single("image"), async (req, res) => {
   try {
+    const fileName = req.file.filename;
     const imagePath = req.file.path;
     const imageData = fs.readFileSync(imagePath);
     const base64Image = imageData.toString("base64");
 
     // Remove temp file
     fs.unlinkSync(imagePath);
-
     const openaiRes = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -73,34 +43,85 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
             content: [
               {
                 type: "text",
-                text: `You're a clothing classifier. Based on the image provided, return a JSON object like the following:
-                {
-                  "formality": one of ["formal", "business casual", "casual", "athleisure", "streetwear"],
-                  "temperature": one of ["summer", "winter", "transitional"],
-                  "colors": array of colors from ["black", "white", "grey", "silver", "gold", "purple", "brown", "tan", "green", "orange", "pink", "maroon", "yellow", "multicolor", "N/A"],
-                  "description": {
-                    "type": (e.g., "jacket", "pants", "shirt"),
-                    "style": (e.g., "puffer", "denim", "crewneck"),
-                    "fit": (e.g., "slim", "regular", "oversized"),
-                    "material": (e.g., "cotton", "wool", "synthetic"),
-                    "intended_use": (e.g., "formal", "sport", "casual"),
-                    "features": array of key features like "insulated", "hooded", "zippered", etc.
-                    "anything_else": information not covered in the other fields
-
-                  }
-                }
-
-                Strictly match only allowed values. Respond with nothing except the JSON object.`
+                text: "Please classify this clothing image.",
               },
               {
                 type: "image_url",
                 image_url: {
-                  url: `data:image/webp;base64,${base64Image}`,
+                  url: `data:${req.file.mimetype};base64,${base64Image}`,
                 },
               },
             ],
           },
         ],
+                functions: [
+          {
+            name: "classify_clothing",
+            description: "Returns clothing classification data",
+            parameters: {
+              type: "object",
+              properties: {
+                formality: {
+                  type: "string",
+                  enum: ["formal", "business casual", "casual", "athleisure", "streetwear"]
+                },
+                temperature: {
+                  type: "string",
+                  enum: ["summer", "winter", "transitional"]
+                },
+                colors: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                    enum: [
+                      "black",
+                      "white",
+                      "grey",
+                      "silver",
+                      "gold",
+                      "purple",
+                      "brown",
+                      "tan",
+                      "green",
+                      "orange",
+                      "pink",
+                      "maroon",
+                      "yellow",
+                      "multicolor",
+                      "N/A"
+                    ]
+                  }
+                },
+                description: {
+                  type: "object",
+                  properties: {
+                    type: { type: "string" },
+                    style: { type: "string" },
+                    fit: { type: "string" },
+                    material: { type: "string" },
+                    intended_use: { type: "string" },
+                    features: {
+                      type: "array",
+                      items: { type: "string" }
+                    },
+                    anything_else: { type: "string" }
+                  },
+                  required: [
+                    "type",
+                    "style",
+                    "fit",
+                    "material",
+                    "intended_use",
+                    "features",
+                    "anything_else"
+                  ]
+                }
+              },
+              required: ["formality", "temperature", "colors", "description"]
+            }
+          }
+        ],
+        function_call: { name: "classify_clothing" },
         max_tokens: 300,
       },
       {
@@ -110,9 +131,39 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
         },
       }
     );
+ 
+    const funcCall = openaiRes.data.choices[0].message.function_call;
+    const jsonResult = JSON.parse(funcCall.arguments);
+    console.log("jsonResult: ", jsonResult);
 
-    const result = openaiRes.data.choices[0].message.content;
-    res.json({ result });
+
+    // Insert into clothing table
+    const connection = await pool.getConnection();
+    try {
+      const sql = `
+        INSERT INTO clothing 
+          (formality, temperature, colors, description_type, description_style, description_fit, description_material, description_intended_use, description_features, description_anything_else, file_name)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+
+      await connection.execute(sql, [
+        jsonResult.formality,
+        jsonResult.temperature,
+        JSON.stringify(jsonResult.colors),
+        jsonResult.description.type,
+        jsonResult.description.style,
+        jsonResult.description.fit,
+        jsonResult.description.material,
+        jsonResult.description.intended_use,
+        JSON.stringify(jsonResult.description.features),
+        jsonResult.description.anything_else,
+        fileName,
+      ]);
+    } finally {
+      connection.release();
+    }
+
+    res.json({ result: jsonResult });
   } catch (err) {
     console.error("Error:", err.response?.data || err.message);
     res.status(500).json({ error: "Image analysis failed." });
@@ -120,5 +171,3 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
 });
 
 app.listen(5001, () => console.log("Server listening on port 5001"));
-
-

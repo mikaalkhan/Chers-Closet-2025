@@ -52,9 +52,9 @@ function FSlider({ pickRandomOutfit, handleFilterChange, imageTest }) {
         <Button type="primary" onClick={pickRandomOutfit} style={{ marginTop: 20 }}>
           Pick Random Outfit
         </Button>
-        {/* <Button type="primary" onClick={imageTest} style={{ marginTop: 20 }}>
+        <Button type="primary" onClick={imageTest} style={{ marginTop: 20 }}>
           Test
-        </Button> */}
+        </Button> 
       </div>
     </Sider>
   );
