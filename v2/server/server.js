@@ -65,6 +65,9 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
                   type: "string",
                   enum: ["summer", "winter", "transitional"]
                 },
+                brand: {
+                  type: "string",
+                },
                 colors: {
                   type: "array",
                   items: {
@@ -95,7 +98,7 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
                   ]
                 }
               },
-              required: ["formality", "temperature", "colors", "description"]
+              required: ["formality", "temperature", "colors", "description", "brand"]
             }
           }
         ],
@@ -119,8 +122,8 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
     try {
       const sql = `
         INSERT INTO clothing 
-          (formality, temperature, colors, description_type, description_style, description_fit, description_material, description_intended_use, description_features, description_anything_else, file_name)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          (formality, temperature, colors, description_type, description_style, description_fit, description_material, description_intended_use, description_features, description_anything_else, file_name, brand)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
       await connection.execute(sql, [
         jsonResult.formality,
@@ -134,6 +137,7 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
         JSON.stringify(jsonResult.description.features),
         jsonResult.description.anything_else,
         fileName,
+        jsonResult.brand
       ]);
     } finally {
       connection.release();
