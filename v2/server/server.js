@@ -194,12 +194,14 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
     const functions = [
       {
         name: "selectOutfitMatches",
-        description: "Select the top 3 items per clothing category based on the outfit request.",
+        description: "Select exactly 3 items per clothing category based on the outfit request.",
         parameters: {
           type: "object",
           properties: {
             hat: {
               type: "array",
+              minItems: 3,
+              maxItems: 3,
               items: {
                 type: "object",
                 properties: {
@@ -210,24 +212,78 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
                 required: ["id", "image_url", "reason"],
               },
             },
-            jacket: { $ref: "#/properties/hat" },
-            shirt: { $ref: "#/properties/hat" },
-            pants: { $ref: "#/properties/hat" },
-            shoes: { $ref: "#/properties/hat" },
+            jacket: {
+              type: "array",
+              minItems: 3,
+              maxItems: 3,
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "number" },
+                  image_url: { type: "string" },
+                  reason: { type: "string" },
+                },
+                required: ["id", "image_url", "reason"],
+              },
+            },
+            shirt: {
+              type: "array",
+              minItems: 3,
+              maxItems: 3,
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "number" },
+                  image_url: { type: "string" },
+                  reason: { type: "string" },
+                },
+                required: ["id", "image_url", "reason"],
+              },
+            },
+            pants: {
+              type: "array",
+              minItems: 3,
+              maxItems: 3,
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "number" },
+                  image_url: { type: "string" },
+                  reason: { type: "string" },
+                },
+                required: ["id", "image_url", "reason"],
+              },
+            },
+            shoes: {
+              type: "array",
+              minItems: 3,
+              maxItems: 3,
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "number" },
+                  image_url: { type: "string" },
+                  reason: { type: "string" },
+                },
+                required: ["id", "image_url", "reason"],
+              },
+            },
           },
           required: ["hat", "jacket", "shirt", "pants", "shoes"],
         },
       },
     ];
- 
+    console.log("Grouped items:", JSON.stringify(groupedItems, null, 2));
     const gptRes = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-4",
         messages: [
           {
-            role: "system",
-            content: "You are a helpful AI stylist that selects the best outfit from a wardrobe.",
+            
+              role: "system",
+              content: "You are a helpful AI stylist that selects up to **three** clothing items per category (hat, jacket, shirt, pants, shoes) based on the user's request and wardrobe.",
+            
           },
           {
             role: "user",
