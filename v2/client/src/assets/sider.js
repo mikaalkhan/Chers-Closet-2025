@@ -1,15 +1,31 @@
 import React, { useState } from "react";
-import { Checkbox, Button, Space, Typography, Input } from "antd";
+import { Button, Typography, Input, message } from "antd";
 import Sider from "antd/es/layout/Sider";
+import axios from "axios";
 
 const { Title } = Typography;
 
-function FSlider({ pickRandomOutfit, handleFilterChange, imageTest }) {
+function FSlider({ pickRandomOutfit, onMatchResults }) {
   const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmitPrompt = () => {
-    console.log("Submitted prompt:", prompt);
-    // You can send this to your backend or do something else with it
+  const handleSubmitPrompt = async () => {
+    if (!prompt.trim()) {
+      message.warning("Please enter a prompt.");
+      return;
+    }
+    console.log("tiddy")
+    setLoading(true);
+    try {
+      const res = await axios.post("http://localhost:5001/match-outfit", {
+        prompt,
+      });
+    } catch (err) {
+      console.error("Error submitting prompt:", err);
+      message.error("Failed to fetch outfit matches.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,19 +55,17 @@ function FSlider({ pickRandomOutfit, handleFilterChange, imageTest }) {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
           />
-          <Button
-            type="default"
-            onClick={handleSubmitPrompt}
-            style={{ marginTop: 8 }}
-          >
-            Submit
-          </Button>
-        </div>
-
-        {/* Other Buttons */}
-        <Button type="primary" onClick={pickRandomOutfit} style={{ marginTop: 20 }}>
-          Pick Random Outfit
+        <Button
+        type="default"
+        loading={loading}
+        onClick={() => {
+            handleSubmitPrompt();
+        }}
+        style={{ marginTop: 8 }}
+        >
+        Submit
         </Button>
+        </div>
       </div>
     </Sider>
   );

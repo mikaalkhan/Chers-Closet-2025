@@ -81,7 +81,7 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
                 description: {
                   type: "object",
                   properties: {
-                    type: { type: "string" },
+                    type: { type: "string" },/* enum: ["hat", "jacket", "shirt", "pants", "shoes"],*/
                     style: { type: "string" },
                     fit: { type: "string" },
                     material: { type: "string" },
@@ -151,12 +151,13 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
   }
 });
 
-app.post("/match-outfit", async (req, res) => {
+ app.post("/match-outfit", async (req, res) => {
   const userPrompt = req.body.prompt;
 
   try {
     const connection = await pool.getConnection();
     const [clothes] = await connection.query("SELECT * FROM clothing");
+
     connection.release();
 
     const groupedItems = {
@@ -176,13 +177,13 @@ app.post("/match-outfit", async (req, res) => {
           formality: item.formality,
           temperature: item.temperature,
           brand: item.brand,
-          colors: JSON.parse(item.colors),
+          colors: item.colors,
           description: {
             style: item.description_style,
             fit: item.description_fit,
             material: item.description_material,
             intended_use: item.description_intended_use,
-            features: JSON.parse(item.description_features),
+            features: item.description_features,
             anything_else: item.description_anything_else,
           },
           image_url: `http://localhost:5001/uploads/${item.file_name}`,
@@ -190,106 +191,6 @@ app.post("/match-outfit", async (req, res) => {
       }
     }
 
-    const gptPrompt = `
-You are a fashion stylist AI. The user has requested an outfit for the following scenario:
-
-"${userPrompt}"
-
-Here is their wardrobe, grouped by category:
-
-${JSON.stringify(groupedItems, null, 2)}
-
-Your task:
-- For EACH category (hat, jacket, shirt, pants, shoes), select the **3 best matching items**, ranked from best to least fit.
-- For each item, return its \`id\`, \`image_url\`, and a brief explanation for why it fits.
-- Output a JSON object like this:
-
-{
-  "hat": [
-    { "id": ..., "image_url": "...", "reason": "..." },
-    ...
-  ],
-  ...
-}
-
-Only return the JSON. Do not explain your answer or include any commentary.
-`;
-
-    const gptRes = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        model: "gpt-4o",
-        messages: [
-          { role: "system", content: "You are a helpful fashion assistant." },
-          { role: "user", content: gptPrompt },
-        ],
-        temperature: 0.7,
-        max_tokens: 2000,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const reply = gptRes.data.choices[0].message.content;
-
-    let parsed = null;
-    try {
-      parsed = JSON.parse(reply);
-    } catch {
-      console.warn("GPT output was not valid JSON.");
-    }
-
-    res.json({ matches: parsed || reply });
-  } catch (err) {
-    console.error(err.response?.data || err.message);
-    res.status(500).json({ error: "Failed to match outfit." });
-  }
-});
-
-app.post("/match-outfit", async (req, res) => {
-  const userPrompt = req.body.prompt;
-
-  try {
-    const connection = await pool.getConnection();
-    const [clothes] = await connection.query("SELECT * FROM clothing");
-    connection.release();
-
-    const groupedItems = {
-      hat: [],
-      jacket: [],
-      shirt: [],
-      pants: [],
-      shoes: [],
-    };
-
-    for (const item of clothes) {
-      const type = item.description_type?.toLowerCase();
-      if (groupedItems[type]) {
-        groupedItems[type].push({
-          id: item.id,
-          file_name: item.file_name,
-          formality: item.formality,
-          temperature: item.temperature,
-          brand: item.brand,
-          colors: JSON.parse(item.colors),
-          description: {
-            style: item.description_style,
-            fit: item.description_fit,
-            material: item.description_material,
-            intended_use: item.description_intended_use,
-            features: JSON.parse(item.description_features),
-            anything_else: item.description_anything_else,
-          },
-          image_url: `http://localhost:5001/uploads/${item.file_name}`,
-        });
-      }
-    }
-
-    // Define function schema
     const functions = [
       {
         name: "selectOutfitMatches",
@@ -318,7 +219,7 @@ app.post("/match-outfit", async (req, res) => {
         },
       },
     ];
-
+ 
     const gptRes = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -344,11 +245,14 @@ app.post("/match-outfit", async (req, res) => {
         },
       }
     );
-
+    console.log("calvin's a goober")
+    console.log("gpt response: ", gptRes.data.choices[0].message)
     const message = gptRes.data.choices[0].message;
 
     if (message.function_call) {
+      console.log("tiddys")
       const args = JSON.parse(message.function_call.arguments);
+      console.log("parsed ting: ", args)
       return res.json({ matches: args });
     } else {
       return res.status(500).json({ error: "No function call returned." });
@@ -357,6 +261,7 @@ app.post("/match-outfit", async (req, res) => {
     console.error(err.response?.data || err.message);
     res.status(500).json({ error: "Failed to match outfit." });
   }
-});
+ });
+
 
 app.listen(5001, () => console.log("Server listening on port 5001"));
