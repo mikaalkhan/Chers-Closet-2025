@@ -8,18 +8,21 @@ const { Title } = Typography;
 function FSlider({ pickRandomOutfit, onMatchResults }) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
-
   const handleSubmitPrompt = async () => {
     if (!prompt.trim()) {
       message.warning("Please enter a prompt.");
       return;
     }
-    console.log("tiddy")
+  
     setLoading(true);
     try {
       const res = await axios.post("http://localhost:5001/match-outfit", {
         prompt,
       });
+  
+      const matches = res.data.matches;
+      console.log("Matched outfit:", matches);
+      onMatchResults(matches); // 👈 Send the outfit back to App.js
     } catch (err) {
       console.error("Error submitting prompt:", err);
       message.error("Failed to fetch outfit matches.");
@@ -27,6 +30,7 @@ function FSlider({ pickRandomOutfit, onMatchResults }) {
       setLoading(false);
     }
   };
+  
 
   return (
     <Sider

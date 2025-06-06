@@ -82,13 +82,17 @@ function App() {
         <ImageRenderer outfit={outfit} frozenFilteredItems={frozenFilteredItems}/>
 
         </Content>
-        <FSlider pickRandomOutfit={pickRandomOutfit} handleFilterChange={handleFilterChange}/>
+        <FSlider
+  pickRandomOutfit={pickRandomOutfit}
+  onMatchResults={(matches) => {
+    setOutfit(matches);
+    setFrozenFilteredItems(null); // optional: reset random filter view
+  }}
+/>
+
 
       </Layout>
       <Footer style={{ background: "#ffffff", padding: "0 20px" }}>
-        <Title level={3} style={{ color: "black", lineHeight: "64px", margin: 0 }}>
-          Contact us at mikaalkhan@seattleacademy.org 
-        </Title>
         <h1>Upload an Image</h1>
         <ImageUploader />
         

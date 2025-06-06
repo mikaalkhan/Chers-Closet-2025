@@ -1,39 +1,54 @@
-import React, { useState } from "react";
-// import { } from "./App.js";
-import { Carousel } from "antd";
+// src/assets/renderimage.js
+import React from "react";
+import { Card, Typography, Carousel } from "antd";
 
+const { Title, Text } = Typography;
 
+const ImageRenderer = ({ outfit }) => {
+  if (!outfit) return null;
 
-const renderImageList = (label, items) => (
+  return (
     <div>
-      <h4>{label}</h4>
-      <Carousel arrows style={{ height: 160.}}>
-        {items.map((item, index) => (
-          <div key={index}>
-            <img
-              src={item.image}
-              alt={`${label} ${index}`}
-              style={{ width: '100%', maxHeight: '160px', objectFit: 'contain' }}
-            />
+      <Title level={2}>Matched Outfit</Title>
+      {Object.keys(outfit).map((category) => (
+        <div key={category} style={{ marginBottom: "2rem" }}>
+          <Title level={4}>{category.toUpperCase()}</Title>
+
+          {/* 👇 Center the carousel */}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Carousel
+              dots
+              arrows
+              slidesToShow={1}
+              draggable
+              style={{ maxWidth: 300, width: "100%" }}
+            >
+              {outfit[category].map((item) => (
+                <div key={item.id}>
+                  <Card
+                    hoverable
+                    cover={
+                      <img
+                        src={item.image_url}
+                        alt={category}
+                        style={{
+                          width: "100%",
+                          height: 300,
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                        }}
+                      />
+                    }
+                  >
+                  </Card>
+                </div>
+              ))}
+            </Carousel>
           </div>
-        ))}
-      </Carousel>
+        </div>
+      ))}
     </div>
   );
-
-function ImageRenderer({ outfit, frozenFilteredItems }) {
-  return (
-
-          outfit && frozenFilteredItems && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-              {renderImageList("Hat", frozenFilteredItems.hat)}
-              {renderImageList("Jacket", frozenFilteredItems.jacket)}
-              {renderImageList("Shirt", frozenFilteredItems.shirt)}
-              {renderImageList("Pants", frozenFilteredItems.pants)}
-              {renderImageList("Shoes", frozenFilteredItems.shoes)}
-            </div>
-          )
-  );
-}
+};
 
 export default ImageRenderer;
